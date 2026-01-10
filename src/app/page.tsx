@@ -6,8 +6,19 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
+// Ajoutez ceci juste après vos imports
+interface Project {
+    id: string;
+    title: string;
+    description: string;
+    technologies: string[];
+    metrics: Record<string, string>; // Ceci accepte n'importe quel duo clé:valeur
+    featured: boolean;
+    image: string;
+    github: string;
+}
 
-const projects = [
+const projects: Project[] = [ // On précise que c'est une liste de "Project"
     {
         id: "credit-risk-modelling",
         title: "Credit Risk Modelling",

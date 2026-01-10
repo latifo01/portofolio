@@ -5,8 +5,17 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
-
-const projects = [
+interface Project {
+    id: string;
+    title: string;
+    description: string;
+    technologies: string[];
+    metrics: Record<string, string>; // Accepte n'importe quelle clé (accuracy, clusters, etc.)
+    category: string;
+    github: string;
+    image?: string; // Optionnel si certains projets n'ont pas d'image
+}
+const projects: Project[] = [
     {
         id: "credit-risk-modelling",
         title: "Credit Risk Modelling",
