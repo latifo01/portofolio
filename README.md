@@ -1,6 +1,6 @@
-# Portfolio Data Science
+# Portofolio Data Science
 
-Portfolio personnel présentant mes projets en Data Science, Machine Learning et Mathématiques Appliquées.
+Portofolio personnel présentant mes projets en Data Science, Machine Learning et Mathématiques Appliquées.
 
 ## Technologies
 

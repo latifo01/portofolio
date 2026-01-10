@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react"; // 1. Ajout de l'import
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({
         <html lang="en">
             <body className="grain antialiased">
                 {children}
+                <Analytics /> {/* 2. Ajout du composant ici */}
             </body>
         </html>
     );
