@@ -121,3 +121,17 @@ a {
   background: rgba(99, 102, 241, 0.3);
   color: var(--foreground);
 }
+
+/* Neural particle animation */
+.neural-particle {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(99,102,241,0.5), 0 0 20px rgba(99,102,241,0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(99,102,241,0.8), 0 0 40px rgba(99,102,241,0.5);
+  }
+}

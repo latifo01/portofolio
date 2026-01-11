@@ -3,13 +3,13 @@ import { Analytics } from "@vercel/analytics/react"; // 1. Ajout de l'import
 import "./globals.css";
 
 export const metadata: Metadata = {
-    title: "Ibrahim Youssouf ABDELATIF | Data Scientist & Applied Mathematician",
-    description: "Portfolio of Ibrahim Youssouf ABDELATIF - Data Science, Machine Learning, and Applied Mathematics projects from Paris-Dauphine University",
-    keywords: ["Data Science", "Machine Learning", "Applied Mathematics", "Python", "R", "C++", "Portfolio"],
+    title: "Ibrahim Youssouf ABDELATIF | Data Scientist – ML & GenAI",
+    description: "Portfolio of Ibrahim Youssouf ABDELATIF - Data Scientist specialized in Machine Learning & GenAI. Projects in Finance, Tech & Strategy consulting from Paris-Dauphine University",
+    keywords: ["Data Science", "Machine Learning", "GenAI", "Applied Mathematics", "Python", "R", "C++", "Portfolio", "Finance", "XGBoost"],
     authors: [{ name: "Ibrahim Youssouf ABDELATIF" }],
     openGraph: {
-        title: "Ibrahim Youssouf ABDELATIF | Data Scientist",
-        description: "Data Science & Applied Mathematics Portfolio",
+        title: "Ibrahim Youssouf ABDELATIF | Data Scientist – ML & GenAI",
+        description: "Data Science & Machine Learning Portfolio - Finance, Tech & Strategy",
         type: "website",
     },
 };

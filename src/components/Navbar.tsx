@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
 
 const navItems = [
     { label: "Home", href: "/" },
@@ -50,6 +50,31 @@ export default function Navbar() {
                                 {item.label}
                             </Link>
                         ))}
+
+                        {/* CV Download Dropdown */}
+                        <div className="relative group">
+                            <button className="flex items-center gap-1 text-foreground/70 hover:text-foreground transition-colors duration-200 text-sm font-medium">
+                                <Download className="w-4 h-4" />
+                                CV
+                            </button>
+                            <div className="absolute top-full right-0 mt-2 py-2 w-32 glass-card opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <a
+                                    href="/cv/CV_Ibrahim_FR.pdf"
+                                    download
+                                    className="block px-4 py-2 text-sm text-foreground/70 hover:text-foreground hover:bg-primary/10 transition-colors"
+                                >
+                                    🇫🇷 Français
+                                </a>
+                                <a
+                                    href="/cv/CV_Ibrahim_EN.pdf"
+                                    download
+                                    className="block px-4 py-2 text-sm text-foreground/70 hover:text-foreground hover:bg-primary/10 transition-colors"
+                                >
+                                    🇬🇧 English
+                                </a>
+                            </div>
+                        </div>
+
                         <a
                             href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu"
                             className="px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-primary-light text-sm font-medium hover:bg-primary/20 transition-all duration-200"
@@ -86,6 +111,29 @@ export default function Navbar() {
                                     {item.label}
                                 </Link>
                             ))}
+
+                            {/* Mobile CV Downloads */}
+                            <div className="flex gap-2">
+                                <a
+                                    href="/cv/CV_Ibrahim_FR.pdf"
+                                    download
+                                    onClick={() => setIsOpen(false)}
+                                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 glass-card text-foreground/70 hover:text-foreground text-sm"
+                                >
+                                    <Download className="w-4 h-4" />
+                                    🇫🇷 CV
+                                </a>
+                                <a
+                                    href="/cv/CV_Ibrahim_EN.pdf"
+                                    download
+                                    onClick={() => setIsOpen(false)}
+                                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 glass-card text-foreground/70 hover:text-foreground text-sm"
+                                >
+                                    <Download className="w-4 h-4" />
+                                    🇬🇧 CV
+                                </a>
+                            </div>
+
                             <a
                                 href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu"
                                 className="px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-primary-light text-center"

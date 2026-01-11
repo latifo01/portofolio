@@ -7,6 +7,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 interface Project {
     id: string;
@@ -87,7 +88,8 @@ export default function Home() {
     const featuredProjects = projects.filter((p) => p.featured);
 
     return (
-        <main className="min-h-screen">
+        <main className="min-h-screen relative">
+            <AnimatedBackground />
             <Navbar />
 
             {/* Hero Section */}
@@ -119,9 +121,18 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.4 }}
-                        className="text-xl md:text-2xl text-foreground/70 mb-8 font-light"
+                        className="text-xl md:text-2xl text-foreground/70 mb-4 font-light"
                     >
-                        Data Scientist & Applied Mathematician
+                        Data Scientist – Spécialisation ML & GenAI
+                    </motion.p>
+
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="text-sm text-primary-light/80 mb-8 font-code"
+                    >
+                        Finance • Tech • Conseil & Stratégie
                     </motion.p>
 
                     {/* Quick Stats */}

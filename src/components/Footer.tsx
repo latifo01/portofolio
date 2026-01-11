@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github, Linkedin, Mail, Heart } from "lucide-react";
+import { Github, Linkedin, Mail, Heart, Download } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -32,6 +32,22 @@ export default function Footer() {
                             <Link href="/blog" className="hover:text-foreground transition-colors">
                                 Blog
                             </Link>
+                            <div className="flex gap-3 mt-2">
+                                <a
+                                    href="/cv/CV_Ibrahim_FR.pdf"
+                                    download
+                                    className="flex items-center gap-1 hover:text-foreground transition-colors"
+                                >
+                                    <Download className="w-3 h-3" /> CV 🇫🇷
+                                </a>
+                                <a
+                                    href="/cv/CV_Ibrahim_EN.pdf"
+                                    download
+                                    className="flex items-center gap-1 hover:text-foreground transition-colors"
+                                >
+                                    <Download className="w-3 h-3" /> CV 🇬🇧
+                                </a>
+                            </div>
                         </div>
                     </div>
 
