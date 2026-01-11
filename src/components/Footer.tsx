@@ -40,7 +40,7 @@ export default function Footer() {
                         <h4 className="font-semibold mb-4">Connect</h4>
                         <div className="flex gap-3">
                             <a
-                                href="https://github.com/latifo01/latifo01"
+                                href="https://github.com/latifo01"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="p-2 glass-card hover:bg-primary/10 transition-colors"
@@ -56,7 +56,7 @@ export default function Footer() {
                                 <Linkedin className="w-5 h-5" />
                             </a>
                             <a
-                                href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu"
+                                href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu?subject=Contact%20via%20Portfolio"
                                 className="p-2 glass-card hover:bg-primary/10 transition-colors"
                             >
                                 <Mail className="w-5 h-5" />

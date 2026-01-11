@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -14,47 +15,54 @@ const projectsData: Record<string, {
     technologies: string[];
     metrics: Record<string, string>;
     keyFeatures: string[];
-    mathSection?: { title: string; content: string };
+    mathSection?: { title: string; content: string; githubLink?: string };
     github: string;
+    demoUrl?: string;
+    gif?: string;
+    image?: string;
 }> = {
     "credit-risk-modelling": {
         title: "Credit Risk Modelling",
         subtitle: "End-to-End Loan Approval Classification & Risk Analysis",
-        description: "This project provides a robust, production-ready machine learning pipeline for Loan Application Classification. It refactors an experimental Jupyter Notebook into a modular, scalable architecture. The system predicts loan approval and provides a standardized RiskScore_ML and RiskLevel for each applicant.",
+        description: "Challenge: Reduce loan default prediction errors for a financial institution. This project provides a robust, production-ready machine learning pipeline for Loan Application Classification. It refactors an experimental Jupyter Notebook into a modular, scalable architecture. The system predicts loan approval and provides a standardized RiskScore_ML and RiskLevel for each applicant.",
         technologies: ["Python 3.9+", "XGBoost", "Scikit-learn", "Pandas", "Docker", "PyYAML"],
         metrics: { "Accuracy": "94.97%", "F1-Score": "94.89%", "ROC-AUC": "0.99" },
         keyFeatures: [
             "Modular Pipeline: Separate logic for feature engineering, model training, and batch inference",
+            "4-Model Comparison: Logistic Regression, SGD, Random Forest, XGBoost with GridSearchCV",
             "Classification Approach: XGBClassifier optimized with best experimental hyperparameters",
             "RiskScore_ML: Probability-based score (0-100) for each applicant",
             "RiskLevel: Quintile-based categorization (A-E) for credit decision support",
             "Docker containerization for production deployment"
         ],
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/credit-risk-architecture.png",
+        github: "https://github.com/latifo01/credit-risk-modelling",
     },
     "customer-segmentation": {
         title: "Customer Segmentation",
         subtitle: "Analyse Comportementale des Dépenses avec Clustering Non-Supervisé",
-        description: "Segmentation non-supervisée réalisée sur un jeu de données de 2,240 clients pour identifier des profils types basés sur leurs comportements d'achat. L'objectif est de permettre à une équipe marketing de cibler plus finement ses campagnes.",
+        description: "Challenge: Enable targeted marketing campaigns through customer profiling. Segmentation non-supervisée réalisée sur un jeu de données de 2,240 clients pour identifier des profils types basés sur leurs comportements d'achat. L'objectif est de permettre à une équipe marketing de cibler plus finement ses campagnes grâce à un tableau de bord interactif.",
         technologies: ["R", "Shiny", "Tidyverse", "ggplot2", "FactoMineR", "NbClust", "cluster"],
         metrics: { "Clients": "2,240", "Variables": "35", "Clusters": "4", "Silhouette": "0.35" },
         keyFeatures: [
             "Traitement des valeurs manquantes et suppression des outliers",
             "Feature engineering: âge, dépenses totales, ancienneté, réceptivité aux campagnes",
             "Comparaison de 3 algorithmes: K-Means, CAH (Ward), GMM",
-            "Dashboard Shiny interactif avec visualisations dynamiques",
-            "Profils radar par segment client"
+            "Dashboard Shiny interactif avec visualisations dynamiques et exploration en temps réel",
+            "Profils radar par segment client pour aide à la décision marketing"
         ],
         mathSection: {
             title: "Algorithme K-Means",
-            content: "Minimisation de l'inertie intra-classe: W = Σₖ Σᵢ∈Cₖ ||xᵢ - μₖ||²"
+            content: "Minimisation de l'inertie intra-classe: W = Σₖ Σᵢ∈Cₖ ||xᵢ - μₖ||²",
+            githubLink: "https://github.com/latifo01/customer-segmentation"
         },
-        github: "https://github.com/latifo01/latifo01",
+        github: "https://github.com/latifo01/customer-segmentation",
+        demoUrl: "https://ibrahimabdelatif-segmentation-des-clients.share.connect.posit.cloud",
     },
     "reinforcement-learning": {
         title: "Reinforcement Learning: MDP & Dynamic Programming",
         subtitle: "C++ Implementation of Markov Decision Processes with Value Iteration",
-        description: "This project implements a complete Reinforcement Learning framework for solving Markov Decision Processes (MDPs) using Dynamic Programming. It includes a practical example of a robot garbage collector that learns optimal behavior through value iteration.",
+        description: "Challenge: Optimize autonomous robot decision-making under uncertainty. This project implements a complete Reinforcement Learning framework for solving Markov Decision Processes (MDPs) using Dynamic Programming. It includes a practical example of a robot garbage collector that learns optimal behavior through value iteration, achieving 270% performance improvement.",
         technologies: ["C++11", "CMake", "Template Programming", "Dynamic Programming"],
         metrics: { "States": "2", "Actions": "3", "Improvement": "270%", "Convergence": "~25 iter" },
         keyFeatures: [
@@ -66,33 +74,38 @@ const projectsData: Record<string, {
         ],
         mathSection: {
             title: "Bellman Optimality Equation",
-            content: "V*(s) = maxₐ [ Σₛ' P(s'|s,a) × (R(s'|s,a) + γ × V*(s')) ]"
+            content: "V*(s) = maxₐ [ Σₛ' P(s'|s,a) × (R(s'|s,a) + γ × V*(s')) ]",
+            githubLink: "https://github.com/latifo01/reinforcement-learning-mdp/blob/main/src/ProgDym.cpp"
         },
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/value_iteration.png",
+        gif: "/projects/robot_simulation.png",
+        github: "https://github.com/latifo01/reinforcement-learning-mdp",
     },
     "monte-carlo-methods": {
         title: "Monte Carlo Methods",
         subtitle: "Advanced Simulation Techniques for Quantile Estimation",
-        description: "A Python implementation of advanced Monte Carlo simulation techniques for probability and quantile estimation. Implements several methods for probability estimation when standard numerical integration fails.",
+        description: "Challenge: Estimate rare event probabilities where standard numerical integration fails. A Python implementation of advanced Monte Carlo simulation techniques for probability and quantile estimation. Implements several variance reduction methods with 7 professional GIF animations demonstrating each technique.",
         technologies: ["Python", "NumPy", "SciPy", "Matplotlib"],
         metrics: { "Methods": "5", "Animations": "7 GIFs" },
         keyFeatures: [
             "Inverse CDF Method: Classic probability integral transform",
-            "Accept-Reject Algorithm: General-purpose sampling",
+            "Accept-Reject Algorithm: General-purpose sampling with visual demonstration",
             "Stratified Sampling: Improved efficiency via space partitioning",
             "Importance Sampling: Variance reduction for rare events using Cauchy proposal",
             "Control Variate: Score function-based variance reduction"
         ],
         mathSection: {
             title: "Importance Sampling Estimator",
-            content: "δ_IS = (1/n) × Σᵢ [ f(Xᵢ) × 𝟙{Xᵢ ≥ q} / g(Xᵢ) ]  where Xᵢ ~ g"
+            content: "δ_IS = (1/n) × Σᵢ [ f(Xᵢ) × 𝟙{Xᵢ ≥ q} / g(Xᵢ) ]  where Xᵢ ~ g",
+            githubLink: "https://github.com/latifo01/monte-carlo-methods/blob/main/src/importance_sampling.py"
         },
-        github: "https://github.com/latifo01/latifo01",
+        gif: "/projects/sampling_process.gif",
+        github: "https://github.com/latifo01/monte-carlo-methods",
     },
     "bike-sharing-glm": {
         title: "Bike Sharing Demand Prediction",
         subtitle: "End-to-End ML Platform with GridSearchCV Hyperparameter Tuning",
-        description: "An end-to-end Machine Learning platform designed to predict the demand for bike rentals in an urban sharing system. It follows a rigorous data science workflow, comparing multiple high-performance models with GridSearchCV hyperparameter tuning.",
+        description: "Challenge: Forecast bike rental demand for urban fleet optimization. An end-to-end Machine Learning platform designed to predict the demand for bike rentals in an urban sharing system. It follows a rigorous data science workflow, comparing multiple high-performance models with GridSearchCV hyperparameter tuning to achieve R² > 0.85.",
         technologies: ["Python", "Scikit-learn", "XGBoost", "LightGBM", "Docker", "Pandas"],
         metrics: { "Models": "6", "RMSE": "~200", "R²": "0.85+" },
         keyFeatures: [
@@ -104,9 +117,11 @@ const projectsData: Record<string, {
         ],
         mathSection: {
             title: "GLM with Box-Cox Transform",
-            content: "y^(λ) = (y^λ - 1) / λ when λ ≠ 0, or ln(y) when λ = 0"
+            content: "y^(λ) = (y^λ - 1) / λ when λ ≠ 0, or ln(y) when λ = 0",
+            githubLink: "https://github.com/latifo01/bike-sharing-prediction"
         },
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/bike-sharing-models.png",
+        github: "https://github.com/latifo01/bike-sharing-prediction",
     },
 };
 
@@ -174,8 +189,37 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                                 <Github className="w-5 h-5" />
                                 View on GitHub
                             </a>
+                            {project.demoUrl && (
+                                <a
+                                    href={project.demoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-4 py-2 bg-accent-gradient rounded-lg font-semibold hover:scale-105 transition-transform"
+                                >
+                                    <ExternalLink className="w-5 h-5" />
+                                    Live Demo
+                                </a>
+                            )}
                         </div>
                     </motion.header>
+
+                    {/* Project GIF/Image */}
+                    {(project.gif || project.image) && (
+                        <motion.section
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.15 }}
+                            className="mb-12"
+                        >
+                            <div className="glass-card p-4 overflow-hidden rounded-xl">
+                                <img
+                                    src={project.gif || project.image}
+                                    alt={`${project.title} visualization`}
+                                    className="w-full h-auto rounded-lg"
+                                />
+                            </div>
+                        </motion.section>
+                    )}
 
                     {/* Metrics */}
                     <motion.section
@@ -234,7 +278,20 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                             transition={{ delay: 0.5 }}
                             className="glass-card p-6 mb-12"
                         >
-                            <h2 className="text-xl font-bold mb-4">{project.mathSection.title}</h2>
+                            <div className="flex items-center justify-between mb-4">
+                                <h2 className="text-xl font-bold">{project.mathSection.title}</h2>
+                                {project.mathSection.githubLink && (
+                                    <a
+                                        href={project.mathSection.githubLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-primary-light hover:text-primary transition-colors flex items-center gap-1"
+                                    >
+                                        <Github className="w-4 h-4" />
+                                        View Implementation
+                                    </a>
+                                )}
+                            </div>
                             <div className="font-code text-lg text-primary-light bg-background/50 p-4 rounded-lg text-center">
                                 {project.mathSection.content}
                             </div>

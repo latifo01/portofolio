@@ -5,61 +5,72 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
+
 interface Project {
     id: string;
     title: string;
     description: string;
     technologies: string[];
-    metrics: Record<string, string>; // Accepte n'importe quelle clé (accuracy, clusters, etc.)
+    metrics: Record<string, string>;
     category: string;
     github: string;
-    image?: string; // Optionnel si certains projets n'ont pas d'image
+    image?: string;
+    gif?: string;
+    demoUrl?: string;
 }
+
 const projects: Project[] = [
     {
         id: "credit-risk-modelling",
         title: "Credit Risk Modelling",
-        description: "End-to-end ML pipeline for loan approval classification with XGBoost. Achieves 94.97% accuracy with RiskScore_ML calculation and risk level categorization (A-E).",
+        description: "Challenge: Reduce loan default prediction errors. Solution: End-to-end ML pipeline with 4 classifiers and GridSearchCV. Result: 94.97% accuracy, 0.99 AUC, custom RiskScore_ML and RiskLevel categorization.",
         technologies: ["Python", "XGBoost", "Docker", "Scikit-learn", "Pandas"],
         metrics: { accuracy: "94.97%", f1: "94.89%", auc: "0.99" },
         category: "ML",
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/credit-risk-architecture.png",
+        github: "https://github.com/latifo01/credit-risk-modelling",
     },
     {
         id: "customer-segmentation",
         title: "Customer Segmentation",
-        description: "Unsupervised clustering analysis on 2,240 customers comparing K-Means, CAH, and GMM algorithms. Interactive Shiny dashboard for exploring customer segments.",
+        description: "Challenge: Enable targeted marketing. Solution: Unsupervised clustering (K-Means, CAH, GMM) on 2,240 customers. Result: 4 distinct segments with interactive Shiny dashboard for real-time decision support.",
         technologies: ["R", "Shiny", "Tidyverse", "ggplot2", "FactoMineR"],
         metrics: { clusters: "4", silhouette: "0.35", customers: "2,240" },
         category: "Viz",
-        github: "https://github.com/latifo01/latifo01",
+        github: "https://github.com/latifo01/customer-segmentation",
+        demoUrl: "https://ibrahimabdelatif-segmentation-des-clients.share.connect.posit.cloud",
     },
     {
         id: "reinforcement-learning",
         title: "Reinforcement Learning MDP",
-        description: "C++ implementation of Markov Decision Processes with Value Iteration algorithm for finding optimal policies. Includes robot garbage collector example.",
+        description: "Challenge: Optimize robot decision-making under uncertainty. Solution: C++ implementation of MDP with Value Iteration. Result: 270% performance improvement, convergence in ~25 iterations.",
         technologies: ["C++11", "CMake", "MDP", "Dynamic Programming"],
         metrics: { improvement: "270%", states: "2", convergence: "~25 iter" },
         category: "ML",
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/value_iteration.png",
+        gif: "/projects/robot_simulation.png",
+        github: "https://github.com/latifo01/reinforcement-learning-mdp",
     },
     {
         id: "monte-carlo-methods",
         title: "Monte Carlo Methods",
-        description: "Advanced Monte Carlo simulation techniques for quantile estimation including Importance Sampling, Stratification, Accept-Reject, and Control Variate methods.",
+        description: "Challenge: Estimate rare event probabilities. Solution: 5 advanced simulation techniques (Importance Sampling, Control Variate, etc.). Result: Significant variance reduction with 7 professional animations.",
         technologies: ["Python", "NumPy", "SciPy", "Matplotlib"],
         metrics: { methods: "5", animations: "7" },
         category: "Stats",
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/sampling_process.gif",
+        gif: "/projects/stratified_animation.gif",
+        github: "https://github.com/latifo01/monte-carlo-methods",
     },
     {
         id: "bike-sharing-glm",
         title: "Bike Sharing Demand Prediction",
-        description: "End-to-end ML platform comparing 6 models (Linear, Ridge, Lasso, Random Forest, XGBoost, LightGBM) with GridSearchCV hyperparameter tuning.",
+        description: "Challenge: Forecast bike rental demand for fleet optimization. Solution: 6-model comparison with GridSearchCV and Box-Cox transformation. Result: R² > 0.85 with XGBoost.",
         technologies: ["Python", "Scikit-learn", "XGBoost", "LightGBM", "Docker"],
         metrics: { models: "6", rmse: "~200", r2: "0.85+" },
         category: "ML",
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/bike-sharing-models.png",
+        github: "https://github.com/latifo01/bike-sharing-prediction",
     },
 ];
 
@@ -109,8 +120,8 @@ export default function ProjectsPage() {
                                 key={cat.id}
                                 onClick={() => setActiveCategory(cat.id)}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === cat.id
-                                        ? "bg-primary text-white"
-                                        : "glass-card text-foreground/70 hover:text-foreground"
+                                    ? "bg-primary text-white"
+                                    : "glass-card text-foreground/70 hover:text-foreground"
                                     }`}
                             >
                                 {cat.label}

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Github } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -18,6 +19,7 @@ const theories = [
             "γ (gamma) is the discount factor for future rewards (0 < γ < 1)",
         ],
         projectLink: "/projects/reinforcement-learning",
+        githubLink: "https://github.com/latifo01/reinforcement-learning-mdp/blob/main/src/ProgDym.cpp",
     },
     {
         id: "importance-sampling",
@@ -32,6 +34,7 @@ const theories = [
             "Variance reduction is achieved when g(x) is chosen to match the integrand shape",
         ],
         projectLink: "/projects/monte-carlo-methods",
+        githubLink: "https://github.com/latifo01/monte-carlo-methods/blob/main/src/importance_sampling.py",
     },
     {
         id: "kmeans",
@@ -46,6 +49,7 @@ const theories = [
             "The algorithm iterates: assign points to nearest centroid, update centroids",
         ],
         projectLink: "/projects/customer-segmentation",
+        githubLink: "https://github.com/latifo01/customer-segmentation/blob/main/app/app.R",
     },
     {
         id: "boxcox",
@@ -60,6 +64,7 @@ const theories = [
             "λ = -1: Reciprocal transformation",
         ],
         projectLink: "/projects/bike-sharing-glm",
+        githubLink: "https://github.com/latifo01/bike-sharing-prediction/blob/main/src/pipelines/training_pipeline.py",
     },
 ];
 
@@ -79,8 +84,8 @@ export default function TheoryPage() {
                             Core <span className="gradient-text">Theory</span>
                         </h1>
                         <p className="text-foreground/60 max-w-2xl mx-auto">
-                            Mathematical foundations behind my projects. Each concept is directly verifiable
-                            in the corresponding project implementation.
+                            Mathematical foundations behind my projects. Each concept links directly to
+                            the corresponding project implementation on GitHub.
                         </p>
                     </motion.div>
 
@@ -102,12 +107,23 @@ export default function TheoryPage() {
                                             Source: {theory.source}
                                         </p>
                                     </div>
-                                    <a
-                                        href={theory.projectLink}
-                                        className="text-sm text-foreground/50 hover:text-primary-light transition-colors"
-                                    >
-                                        View Project →
-                                    </a>
+                                    <div className="flex gap-2">
+                                        <a
+                                            href={theory.githubLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-1 text-sm text-foreground/50 hover:text-primary-light transition-colors px-3 py-1 glass-card"
+                                        >
+                                            <Github className="w-4 h-4" />
+                                            Code
+                                        </a>
+                                        <a
+                                            href={theory.projectLink}
+                                            className="text-sm text-foreground/50 hover:text-primary-light transition-colors px-3 py-1 glass-card"
+                                        >
+                                            Project →
+                                        </a>
+                                    </div>
                                 </div>
 
                                 {/* Description */}

@@ -1,80 +1,86 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ChevronDown } from "lucide-react";
+import { Github, Linkedin, Mail, ChevronDown, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
-// Ajoutez ceci juste après vos imports
+
 interface Project {
     id: string;
     title: string;
     description: string;
     technologies: string[];
-    metrics: Record<string, string>; // Ceci accepte n'importe quel duo clé:valeur
+    metrics: Record<string, string>;
     featured: boolean;
     image: string;
+    gif?: string;
     github: string;
+    demoUrl?: string;
 }
 
-const projects: Project[] = [ // On précise que c'est une liste de "Project"
+const projects: Project[] = [
     {
         id: "credit-risk-modelling",
         title: "Credit Risk Modelling",
-        description: "End-to-end ML pipeline for loan approval classification with XGBoost. Achieves 94.97% accuracy with RiskScore_ML calculation.",
+        description: "Challenge: Reduce loan default prediction errors for a financial institution. Solution: Built an end-to-end ML pipeline comparing 4 classifiers with GridSearchCV optimization. Result: Achieved 94.97% accuracy and 0.99 AUC with XGBoost, plus custom RiskScore_ML (0-100) and RiskLevel (A-E) categorization for business decision support.",
         technologies: ["Python", "XGBoost", "Docker", "Scikit-learn"],
         metrics: { accuracy: "94.97%", f1: "94.89%", auc: "0.99" },
         featured: true,
-        image: "/projects/credit-risk.png",
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/credit-risk-architecture.png",
+        github: "https://github.com/latifo01/credit-risk-modelling",
     },
     {
         id: "customer-segmentation",
         title: "Customer Segmentation",
-        description: "Unsupervised clustering analysis on 2,240 customers. Comparing K-Means, CAH, and GMM with interactive Shiny dashboard.",
+        description: "Challenge: Enable targeted marketing campaigns through customer profiling. Solution: Performed unsupervised clustering on 2,240 customers comparing K-Means, CAH, and GMM. Result: Identified 4 distinct customer segments with interactive Shiny dashboard for real-time exploration and decision support.",
         technologies: ["R", "Shiny", "Tidyverse", "ggplot2"],
         metrics: { clusters: "4", silhouette: "0.35", customers: "2,240" },
         featured: true,
         image: "/projects/segmentation.png",
-        github: "https://github.com/latifo01/latifo01",
+        github: "https://github.com/latifo01/customer-segmentation",
+        demoUrl: "https://ibrahimabdelatif-segmentation-des-clients.share.connect.posit.cloud",
     },
     {
         id: "reinforcement-learning",
         title: "Reinforcement Learning MDP",
-        description: "C++ implementation of Markov Decision Processes with Value Iteration algorithm. Robot garbage collector example.",
+        description: "Challenge: Optimize autonomous robot decision-making under uncertainty. Solution: Implemented Markov Decision Processes with Value Iteration in C++. Result: Achieved 270% performance improvement with convergence in ~25 iterations for robot garbage collector optimization.",
         technologies: ["C++11", "CMake", "MDP", "Dynamic Programming"],
         metrics: { improvement: "270%", states: "2", convergence: "~25 iter" },
         featured: true,
-        image: "/projects/rl.png",
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/value_iteration.png",
+        gif: "/projects/robot_simulation.png",
+        github: "https://github.com/latifo01/reinforcement-learning-mdp",
     },
     {
         id: "monte-carlo-methods",
         title: "Monte Carlo Methods",
-        description: "Advanced Monte Carlo simulation techniques for quantile estimation: Importance Sampling, Stratification, Control Variate.",
+        description: "Challenge: Estimate rare event probabilities where standard integration fails. Solution: Implemented 5 advanced simulation techniques including Importance Sampling and Control Variate. Result: Significant variance reduction with 7 professional animations demonstrating each method.",
         technologies: ["Python", "NumPy", "SciPy", "Matplotlib"],
         metrics: { methods: "5", animations: "7 GIFs" },
         featured: false,
-        image: "/projects/monte-carlo.png",
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/sampling_process.gif",
+        gif: "/projects/importance_sampling.gif",
+        github: "https://github.com/latifo01/monte-carlo-methods",
     },
     {
         id: "bike-sharing-glm",
         title: "Bike Sharing Demand Prediction",
-        description: "End-to-end ML platform comparing 6 models with GridSearchCV hyperparameter tuning for bike rental demand forecasting.",
+        description: "Challenge: Forecast bike rental demand for urban fleet optimization. Solution: Built ML platform comparing 6 models with GridSearchCV and Box-Cox transformation. Result: Achieved R² > 0.85 with XGBoost, enabling better resource allocation.",
         technologies: ["Python", "Scikit-learn", "XGBoost", "LightGBM"],
         metrics: { models: "6", rmse: "~200", r2: "0.85+" },
         featured: false,
-        image: "/projects/bike-sharing.png",
-        github: "https://github.com/latifo01/latifo01",
+        image: "/projects/bike-sharing-models.png",
+        github: "https://github.com/latifo01/bike-sharing-prediction",
     },
 ];
 
 const stats = [
     { label: "Projects", value: "5" },
-    { label: "Languages", value: "3" },
-    { label: "Lines of Code", value: "10k+" },
+    { label: "Languages", value: "4" },
+    { label: "Lines of Code", value: "15k+" },
 ];
 
 export default function Home() {
@@ -141,7 +147,7 @@ export default function Home() {
                         className="flex gap-4 justify-center"
                     >
                         <a
-                            href="https://github.com/latifo01/latifo01"
+                            href="https://github.com/latifo01"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="p-3 glass-card glow-hover transition-all duration-300 hover:scale-110"
@@ -157,7 +163,7 @@ export default function Home() {
                             <Linkedin className="w-6 h-6" />
                         </a>
                         <a
-                            href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu"
+                            href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu?subject=Contact%20via%20Portfolio"
                             className="p-3 glass-card glow-hover transition-all duration-300 hover:scale-110"
                         >
                             <Mail className="w-6 h-6" />
@@ -179,6 +185,55 @@ export default function Home() {
                         <ChevronDown className="w-8 h-8 text-foreground/30" />
                     </motion.div>
                 </motion.div>
+            </section>
+
+            {/* About Me Section */}
+            <section id="about" className="py-24 px-6 bg-background-secondary/30">
+                <div className="max-w-4xl mx-auto">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-8"
+                    >
+                        <h2 className="text-4xl font-bold mb-4">
+                            About <span className="gradient-text">Me</span>
+                        </h2>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                        className="glass-card p-8"
+                    >
+                        <p className="text-foreground/80 leading-relaxed text-lg mb-6">
+                            I am a Master&apos;s student in <strong>Applied Mathematics (MSc 280)</strong> at
+                            <strong> Paris-Dauphine University</strong>, specializing in <strong>Machine Learning</strong>,
+                            <strong> Statistical Modeling</strong>, and <strong>Quantitative Finance</strong>.
+                        </p>
+                        <p className="text-foreground/70 leading-relaxed mb-6">
+                            My academic journey combines rigorous mathematical foundations with practical
+                            applications in Data Science. I am passionate about transforming complex data
+                            into actionable insights through advanced statistical methods and ML algorithms.
+                        </p>
+                        <div className="grid md:grid-cols-3 gap-4 mt-8">
+                            <div className="text-center p-4 bg-background/50 rounded-lg">
+                                <div className="text-2xl font-bold gradient-text mb-2">ML</div>
+                                <div className="text-sm text-foreground/60">XGBoost, Random Forest, Clustering</div>
+                            </div>
+                            <div className="text-center p-4 bg-background/50 rounded-lg">
+                                <div className="text-2xl font-bold gradient-text mb-2">Statistics</div>
+                                <div className="text-sm text-foreground/60">Monte Carlo, GLM, Bayesian</div>
+                            </div>
+                            <div className="text-center p-4 bg-background/50 rounded-lg">
+                                <div className="text-2xl font-bold gradient-text mb-2">Programming</div>
+                                <div className="text-sm text-foreground/60">Python, R, C++, SQL</div>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
             </section>
 
             {/* Featured Projects */}
@@ -273,7 +328,7 @@ export default function Home() {
                             Machine Learning, and Applied Mathematics research.
                         </p>
                         <a
-                            href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu"
+                            href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu?subject=Contact%20via%20Portfolio"
                             className="inline-flex items-center gap-2 px-8 py-4 bg-accent-gradient rounded-full font-semibold glow-hover transition-all duration-300 hover:scale-105"
                         >
                             <Mail className="w-5 h-5" />
