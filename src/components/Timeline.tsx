@@ -13,21 +13,21 @@ interface TimelineItem {
 
 const timelineData: TimelineItem[] = [
     {
-        year: "2024 - Present",
+        year: "2025 - Present",
         title: "MSc 280 - Data Science & Quantitative Finance",
         organization: "Paris-Dauphine University",
         description: "Specialization in Machine Learning, Deep Learning, and Stochastic Calculus.",
         type: "education",
     },
     {
-        year: "2023 - 2024",
+        year: "2024 - 2025",
         title: "M1 Applied Mathematics",
         organization: "Paris-Dauphine University",
         description: "Advanced Statistics, Optimization, and Probability Theory.",
         type: "education",
     },
     {
-        year: "2020 - 2023",
+        year: "2021 - 2024",
         title: "BSc in Applied Mathematics",
         organization: "Paris-Dauphine University",
         description: "Foundations of Mathematics and Computer Science.",
