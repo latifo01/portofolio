@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ExternalLink, Github } from "lucide-react";
 
 interface Project {
@@ -25,10 +26,11 @@ export default function ProjectCard({ project, compact = false }: { project: Pro
                 {/* Image/GIF Section */}
                 {displayImage && !compact && (
                     <div className="relative h-48 overflow-hidden bg-background-secondary">
-                        <img
+                        <Image
                             src={displayImage}
-                            alt={project.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            alt={`Screenshot of ${project.title} project`}
+                            fill
+                            className="object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
 

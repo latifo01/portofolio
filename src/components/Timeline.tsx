@@ -29,7 +29,7 @@ const timelineData: TimelineItem[] = [
     {
         year: "2021 - 2024",
         title: "BSc in Applied Mathematics",
-        organization: "Paris-Dauphine University",
+        organization: "University of Strasbourg - Faculty of Mathematics & Computer Science",
         description: "Foundations of Mathematics and Computer Science.",
         type: "education",
     },
