@@ -83,10 +83,8 @@ export default function Footer() {
 
                 {/* Copyright */}
                 <div className="mt-12 pt-6 border-t border-border text-center text-sm text-foreground/40">
-                    <p className="flex items-center justify-center gap-1">
-                        © {new Date().getFullYear()} Ibrahim Youssouf ABDELATIF. Built with
-                        <Heart className="w-4 h-4 text-red-500" />
-                        using Next.js
+                    <p>
+                        &copy; {new Date().getFullYear()} Ibrahim Youssouf ABDELATIF. All Rights Reserved.
                     </p>
                 </div>
             </div>

@@ -1,13 +1,16 @@
+
 "use client";
 
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ChevronDown, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Github, Linkedin, Mail, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import Skills from "@/components/Skills";
+import Timeline from "@/components/Timeline";
 
 interface Project {
     id: string;
@@ -20,6 +23,7 @@ interface Project {
     gif?: string;
     github: string;
     demoUrl?: string;
+    categories: string[];
 }
 
 const projects: Project[] = [
@@ -32,6 +36,7 @@ const projects: Project[] = [
         featured: true,
         image: "/projects/credit-risk-architecture.png",
         github: "https://github.com/latifo01/credit-risk-modelling",
+        categories: ["ml", "finance"],
     },
     {
         id: "customer-segmentation",
@@ -43,6 +48,7 @@ const projects: Project[] = [
         image: "/projects/segmentation.png",
         github: "https://github.com/latifo01/customer-segmentation",
         demoUrl: "https://ibrahimabdelatif-segmentation-des-clients.share.connect.posit.cloud",
+        categories: ["ml"],
     },
     {
         id: "reinforcement-learning",
@@ -54,6 +60,7 @@ const projects: Project[] = [
         image: "/projects/value_iteration.png",
         gif: "/projects/robot_simulation.png",
         github: "https://github.com/latifo01/reinforcement-learning-mdp",
+        categories: ["ml", "math"],
     },
     {
         id: "monte-carlo-methods",
@@ -65,6 +72,7 @@ const projects: Project[] = [
         image: "/projects/sampling_process.gif",
         gif: "/projects/importance_sampling.gif",
         github: "https://github.com/latifo01/monte-carlo-methods",
+        categories: ["math", "finance"],
     },
     {
         id: "bike-sharing-glm",
@@ -75,6 +83,7 @@ const projects: Project[] = [
         featured: false,
         image: "/projects/bike-sharing-models.png",
         github: "https://github.com/latifo01/bike-sharing-prediction",
+        categories: ["ml"],
     },
 ];
 
@@ -84,8 +93,19 @@ const stats = [
     { label: "Lines of Code", value: "15k+" },
 ];
 
+const FILTER_CATEGORIES = [
+    { id: "all", label: "All Projects" },
+    { id: "ml", label: "Machine Learning" },
+    { id: "finance", label: "Finance" },
+    { id: "math", label: "Math & Stats" },
+];
+
 export default function Home() {
-    const featuredProjects = projects.filter((p) => p.featured);
+    const [activeCategory, setActiveCategory] = useState("all");
+
+    const filteredProjects = projects.filter((project) =>
+        activeCategory === "all" ? true : project.categories.includes(activeCategory)
+    );
 
     return (
         <main className="min-h-screen relative">
@@ -123,7 +143,7 @@ export default function Home() {
                         transition={{ delay: 0.4 }}
                         className="text-xl md:text-2xl text-foreground/70 mb-4 font-light"
                     >
-                        Data Scientist – Spécialisation ML & GenAI
+                        Data Scientist – Spécialisation <span className="text-primary-light font-medium">ML & GenAI</span>
                     </motion.p>
 
                     <motion.p
@@ -144,7 +164,7 @@ export default function Home() {
                     >
                         {stats.map((stat, i) => (
                             <div key={i} className="text-center">
-                                <div className="text-3xl font-bold gradient-text">{stat.value}</div>
+                                <div className="text-3xl font-bold gradient-text font-mono">{stat.value}</div>
                                 <div className="text-sm text-foreground/50">{stat.label}</div>
                             </div>
                         ))}
@@ -198,57 +218,8 @@ export default function Home() {
                 </motion.div>
             </section>
 
-            {/* About Me Section */}
+            {/* About Me Section - Refactored */}
             <section id="about" className="py-24 px-6 bg-background-secondary/30">
-                <div className="max-w-4xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-center mb-8"
-                    >
-                        <h2 className="text-4xl font-bold mb-4">
-                            About <span className="gradient-text">Me</span>
-                        </h2>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="glass-card p-8"
-                    >
-                        <p className="text-foreground/80 leading-relaxed text-lg mb-6">
-                            I am a Master&apos;s student in <strong>Applied Mathematics (MSc 280)</strong> at
-                            <strong> Paris-Dauphine University</strong>, specializing in <strong>Machine Learning</strong>,
-                            <strong> Statistical Modeling</strong>, and <strong>Quantitative Finance</strong>.
-                        </p>
-                        <p className="text-foreground/70 leading-relaxed mb-6">
-                            My academic journey combines rigorous mathematical foundations with practical
-                            applications in Data Science. I am passionate about transforming complex data
-                            into actionable insights through advanced statistical methods and ML algorithms.
-                        </p>
-                        <div className="grid md:grid-cols-3 gap-4 mt-8">
-                            <div className="text-center p-4 bg-background/50 rounded-lg">
-                                <div className="text-2xl font-bold gradient-text mb-2">ML</div>
-                                <div className="text-sm text-foreground/60">XGBoost, Random Forest, Clustering</div>
-                            </div>
-                            <div className="text-center p-4 bg-background/50 rounded-lg">
-                                <div className="text-2xl font-bold gradient-text mb-2">Statistics</div>
-                                <div className="text-sm text-foreground/60">Monte Carlo, GLM, Bayesian</div>
-                            </div>
-                            <div className="text-center p-4 bg-background/50 rounded-lg">
-                                <div className="text-2xl font-bold gradient-text mb-2">Programming</div>
-                                <div className="text-sm text-foreground/60">Python, R, C++, SQL</div>
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Featured Projects */}
-            <section id="projects" className="py-24 px-6">
                 <div className="max-w-6xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -257,26 +228,85 @@ export default function Home() {
                         className="text-center mb-16"
                     >
                         <h2 className="text-4xl font-bold mb-4">
-                            Featured <span className="gradient-text">Projects</span>
+                            About <span className="gradient-text">Me</span>
                         </h2>
-                        <p className="text-foreground/60 max-w-2xl mx-auto">
-                            A selection of my best work in Machine Learning, Data Science, and Applied Mathematics.
+                        <p className="text-foreground/70 max-w-3xl mx-auto leading-relaxed text-lg">
+                            I am a Master&apos;s student in <strong>Applied Mathematics</strong> at <strong>Paris-Dauphine University</strong>,
+                            passionate about transforming complex data into actionable insights through advanced statistical methods and Machine Learning.
                         </p>
                     </motion.div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {featuredProjects.map((project, i) => (
-                            <motion.div
-                                key={project.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                            >
-                                <ProjectCard project={project} />
-                            </motion.div>
-                        ))}
+                    <div className="grid lg:grid-cols-2 gap-12 mb-16">
+                        {/* Timeline Column */}
+                        <div>
+                            <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                                <span className="w-8 h-1 bg-primary rounded-full"></span>
+                                Academic Journey
+                            </h3>
+                            <Timeline />
+                        </div>
+
+                        {/* Skills Column */}
+                        <div>
+                            <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                                <span className="w-8 h-1 bg-secondary rounded-full"></span>
+                                Technical Arsenal
+                            </h3>
+                            <Skills />
+                        </div>
                     </div>
+                </div>
+            </section>
+
+            {/* Featured Projects with Filters */}
+            <section id="projects" className="py-24 px-6">
+                <div className="max-w-6xl mx-auto">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-12"
+                    >
+                        <h2 className="text-4xl font-bold mb-6">
+                            Featured <span className="gradient-text">Projects</span>
+                        </h2>
+
+                        {/* Filter Buttons */}
+                        <div className="flex flex-wrap justify-center gap-4 mb-8">
+                            {FILTER_CATEGORIES.map((category) => (
+                                <button
+                                    key={category.id}
+                                    onClick={() => setActiveCategory(category.id)}
+                                    className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === category.id
+                                            ? "bg-primary text-white shadow-[0_0_20px_rgba(99,102,241,0.5)]"
+                                            : "glass-card hover:bg-white/10 text-foreground/70"
+                                        }`}
+                                >
+                                    {category.label}
+                                </button>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    <motion.div
+                        layout
+                        className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                    >
+                        <AnimatePresence mode="popLayout">
+                            {filteredProjects.map((project) => (
+                                <motion.div
+                                    key={project.id}
+                                    layout
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <ProjectCard project={project} />
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+                    </motion.div>
 
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -292,34 +322,6 @@ export default function Home() {
                             <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
                         </Link>
                     </motion.div>
-                </div>
-            </section>
-
-            {/* All Projects Preview */}
-            <section className="py-24 px-6 bg-background-secondary/30">
-                <div className="max-w-6xl mx-auto">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-3xl font-bold mb-12 text-center"
-                    >
-                        More <span className="gradient-text">Work</span>
-                    </motion.h2>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                        {projects.filter(p => !p.featured).map((project, i) => (
-                            <motion.div
-                                key={project.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                            >
-                                <ProjectCard project={project} compact />
-                            </motion.div>
-                        ))}
-                    </div>
                 </div>
             </section>
 
