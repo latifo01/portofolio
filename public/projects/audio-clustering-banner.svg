@@ -1,0 +1,31 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="32" fill="#08131F"/>
+  <rect x="42" y="42" width="1516" height="816" rx="28" fill="url(#bg)"/>
+  <g opacity="0.18">
+    <circle cx="302" cy="242" r="164" fill="#3DD6C6"/>
+    <circle cx="1260" cy="210" r="120" fill="#F2B24B"/>
+    <circle cx="1284" cy="666" r="180" fill="#17344F"/>
+  </g>
+  <rect x="120" y="156" width="508" height="588" rx="28" fill="#0E2135" stroke="#274D67"/>
+  <path d="M154 432C196 408 238 354 280 338C322 322 364 382 406 382C448 382 490 250 532 250C574 250 616 394 656 444" stroke="#8FF3E7" stroke-width="8" stroke-linecap="round"/>
+  <path d="M154 522C196 498 238 438 280 426C322 414 364 468 406 468C448 468 490 354 532 354C574 354 616 480 656 526" stroke="#F2B24B" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+  <g opacity="0.8">
+    <circle cx="912" cy="320" r="64" fill="#10314B" stroke="#3DD6C6" stroke-width="3"/>
+    <circle cx="1060" cy="252" r="46" fill="#12344E" stroke="#3DD6C6" stroke-width="3"/>
+    <circle cx="1162" cy="370" r="40" fill="#143A55" stroke="#8FF3E7" stroke-width="3"/>
+    <circle cx="1248" cy="286" r="54" fill="#173E5B" stroke="#F2B24B" stroke-width="3"/>
+    <circle cx="1010" cy="454" r="56" fill="#102D45" stroke="#8FF3E7" stroke-width="3"/>
+    <circle cx="1188" cy="512" r="68" fill="#133553" stroke="#3DD6C6" stroke-width="3"/>
+    <circle cx="1330" cy="438" r="40" fill="#173A55" stroke="#F2B24B" stroke-width="3"/>
+  </g>
+  <path d="M912 320L1060 252L1248 286L1188 512L1010 454L1162 370L1330 438" stroke="#406882" stroke-width="4" stroke-linecap="round"/>
+  <text x="118" y="100" fill="#8FF3E7" font-family="Arial, sans-serif" font-size="26" letter-spacing="8">UNSUPERVISED AUDIO ML</text>
+  <text x="118" y="820" fill="#F5F7FB" font-family="Arial, sans-serif" font-size="72" font-weight="700">Environmental Audio Clustering</text>
+  <text x="118" y="870" fill="#B3C6D8" font-family="Arial, sans-serif" font-size="28">AST + UMAP + K-Means vs handcrafted features</text>
+  <defs>
+    <linearGradient id="bg" x1="76" y1="80" x2="1476" y2="830" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1828"/>
+      <stop offset="1" stop-color="#10243A"/>
+    </linearGradient>
+  </defs>
+</svg>

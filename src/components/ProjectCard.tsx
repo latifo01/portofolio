@@ -1,99 +1,86 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { ExternalLink, Github } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
+import type { Project } from "@/data/projects";
 
-interface Project {
-    id: string;
-    title: string;
-    description: string;
-    technologies: string[];
-    metrics: Record<string, string>;
-    github: string;
-    image?: string;
-    gif?: string;
-    demoUrl?: string;
-    featured?: boolean;
-}
-
-export default function ProjectCard({ project, compact = false }: { project: Project; compact?: boolean }) {
-    const displayImage = project.gif || project.image;
-
+export default function ProjectCard({
+    project,
+    compact = false,
+}: {
+    project: Project;
+    compact?: boolean;
+}) {
     return (
-        <Link href={`/projects/${project.id}`}>
-            <article className={`glass-card overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${compact ? "" : "h-full"}`}>
-                {/* Image/GIF Section */}
-                {displayImage && !compact && (
-                    <div className="relative h-48 overflow-hidden bg-background-secondary">
+        <Link href={`/projects/${project.id}`} className="block h-full">
+            <article className={`glass-card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl ${compact ? "" : ""}`}>
+                {project.image && !compact && (
+                    <div className="relative h-52 overflow-hidden bg-background-secondary">
                         <Image
-                            src={displayImage}
-                            alt={`Screenshot of ${project.title} project`}
+                            src={project.image}
+                            alt={`${project.title} cover`}
                             fill
-                            className="object-cover group-hover:scale-110 transition-transform duration-500"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
 
-                        {/* Demo Badge */}
                         {project.demoUrl && (
-                            <div className="absolute top-3 right-3 px-2 py-1 bg-accent-gradient rounded-full text-xs font-semibold flex items-center gap-1">
-                                <ExternalLink className="w-3 h-3" />
-                                Live Demo
+                            <div className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-background/80 px-3 py-1 text-xs font-medium text-primary-light">
+                                <ExternalLink className="h-3.5 w-3.5" />
+                                Live demo
                             </div>
                         )}
                     </div>
                 )}
 
-                <div className="p-6">
-                    {/* Title */}
-                    <h3 className="text-xl font-bold mb-2 group-hover:gradient-text transition-all">
-                        {project.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className={`text-foreground/60 text-sm mb-4 ${compact ? "line-clamp-2" : "line-clamp-3"}`}>
-                        {project.description}
+                <div className="flex flex-1 flex-col p-6">
+                    <p className="font-code text-[11px] uppercase tracking-[0.25em] text-primary-light mb-3">
+                        {project.context}
                     </p>
 
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="mb-3 flex items-start justify-between gap-4">
+                        <h3 className="text-2xl font-semibold leading-tight transition-colors group-hover:text-primary-light">
+                            {project.title}
+                        </h3>
+                        <ArrowUpRight className="h-5 w-5 shrink-0 text-foreground/35 transition-colors group-hover:text-primary-light" />
+                    </div>
+
+                    <p className="mb-3 text-sm font-medium text-secondary-light">{project.tagline}</p>
+                    <p className={`text-sm leading-relaxed text-foreground/64 ${compact ? "line-clamp-3" : "line-clamp-4"}`}>
+                        {project.summary}
+                    </p>
+
+                    <div className="mt-5 flex flex-wrap gap-2">
                         {project.technologies.slice(0, compact ? 3 : 4).map((tech) => (
                             <span
                                 key={tech}
-                                className="px-2 py-1 text-xs font-code bg-primary/10 text-primary-light rounded"
+                                className="rounded-full border border-border bg-white/5 px-3 py-1 text-xs text-foreground/78"
                             >
                                 {tech}
                             </span>
                         ))}
-                        {project.technologies.length > (compact ? 3 : 4) && (
-                            <span className="px-2 py-1 text-xs font-code bg-foreground/10 text-foreground/50 rounded">
-                                +{project.technologies.length - (compact ? 3 : 4)}
-                            </span>
-                        )}
                     </div>
 
-                    {/* Metrics */}
                     {!compact && (
-                        <div className="flex gap-4 pt-4 border-t border-border">
-                            {Object.entries(project.metrics).slice(0, 3).map(([key, value]) => (
-                                <div key={key} className="text-center flex-1">
-                                    <div className="text-lg font-bold gradient-text">{value}</div>
-                                    <div className="text-xs text-foreground/40 capitalize">{key}</div>
+                        <div className="mt-6 grid grid-cols-3 gap-3 border-t border-border pt-5">
+                            {project.metrics.slice(0, 3).map((metric) => (
+                                <div key={metric.label}>
+                                    <p className="text-lg font-semibold gradient-text">{metric.value}</p>
+                                    <p className="text-xs uppercase tracking-[0.14em] text-foreground/40">
+                                        {metric.label}
+                                    </p>
                                 </div>
                             ))}
                         </div>
                     )}
 
-                    {/* Links Row */}
-                    <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
-                        <span className="text-xs text-foreground/40 flex items-center gap-1">
-                            <Github className="w-3 h-3" />
-                            View Details
-                        </span>
-                        {project.demoUrl && compact && (
-                            <span className="text-xs text-primary-light flex items-center gap-1">
-                                <ExternalLink className="w-3 h-3" />
-                                Live Demo
+                    <div className="mt-auto flex items-center gap-4 border-t border-border pt-5 text-xs uppercase tracking-[0.18em] text-foreground/42">
+                        <span>Case study</span>
+                        {project.github && (
+                            <span className="inline-flex items-center gap-1">
+                                <Github className="h-3.5 w-3.5" />
+                                Code
                             </span>
                         )}
                     </div>

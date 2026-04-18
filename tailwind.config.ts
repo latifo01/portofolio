@@ -10,34 +10,36 @@ const config: Config = {
         extend: {
             colors: {
                 background: "var(--background)",
+                "background-secondary": "var(--background-secondary)",
                 foreground: "var(--foreground)",
+                border: "var(--border)",
                 primary: {
-                    DEFAULT: "#6366f1",
-                    light: "#a5b4fc",
-                    dark: "#4f46e5",
+                    DEFAULT: "var(--primary)",
+                    light: "var(--primary-light)",
+                    dark: "var(--primary-dark)",
                 },
                 secondary: {
-                    DEFAULT: "#a855f7",
-                    light: "#c084fc",
+                    DEFAULT: "var(--secondary)",
+                    light: "var(--secondary-light)",
                 },
                 card: {
-                    DEFAULT: "#1a1a25",
-                    hover: "#252535",
+                    DEFAULT: "var(--card)",
+                    hover: "var(--card-hover)",
                 },
             },
             fontFamily: {
-                mono: ["JetBrains Mono", "Fira Code", "monospace"],
-                sans: ["Inter", "system-ui", "sans-serif"],
+                sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+                mono: ["var(--font-mono)", "monospace"],
             },
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
                 "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-                "accent-gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                "accent-gradient": "var(--accent-gradient)",
             },
             animation: {
                 "fade-in": "fadeIn 0.5s ease-out",
                 "slide-up": "slideUp 0.5s ease-out",
-                "glow": "glow 2s ease-in-out infinite alternate",
+                glow: "glow 2.4s ease-in-out infinite alternate",
             },
             keyframes: {
                 fadeIn: {
@@ -49,8 +51,8 @@ const config: Config = {
                     "100%": { opacity: "1", transform: "translateY(0)" },
                 },
                 glow: {
-                    "0%": { boxShadow: "0 0 5px rgba(99, 102, 241, 0.5)" },
-                    "100%": { boxShadow: "0 0 20px rgba(99, 102, 241, 0.8)" },
+                    "0%": { boxShadow: "0 0 8px rgba(61, 214, 198, 0.18)" },
+                    "100%": { boxShadow: "0 0 24px rgba(242, 178, 75, 0.18)" },
                 },
             },
         },

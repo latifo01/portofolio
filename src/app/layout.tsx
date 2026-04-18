@@ -1,34 +1,63 @@
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/react"; // 1. Ajout de l'import
+import { Analytics } from "@vercel/analytics/react";
+import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
+const sans = Space_Grotesk({
+    subsets: ["latin"],
+    variable: "--font-sans",
+});
+
+const mono = IBM_Plex_Mono({
+    subsets: ["latin"],
+    variable: "--font-mono",
+    weight: ["400", "500", "600"],
+});
+
 export const metadata: Metadata = {
-    title: "Ibrahim Youssouf ABDELATIF | Data Scientist – ML & GenAI",
-    description: "Portfolio of Ibrahim Youssouf ABDELATIF - Data Scientist specialized in Machine Learning & GenAI. Projects in Finance, Tech & Strategy consulting from Paris-Dauphine University",
-    keywords: ["Data Science", "Machine Learning", "GenAI", "Applied Mathematics", "Python", "R", "C++", "Portfolio", "Finance", "XGBoost"],
-    authors: [{ name: "Ibrahim Youssouf ABDELATIF" }],
-    metadataBase: new URL('https://ibrahim-abdelatif.vercel.app'),
+    title: {
+        default: "Ibrahim Youssouf Abdelatif | Data Science and Quantitative ML",
+        template: "%s | Ibrahim Youssouf Abdelatif",
+    },
+    description:
+        "Portfolio of Ibrahim Youssouf Abdelatif, an Applied Mathematics student building end-to-end machine learning, quantitative finance, signal processing, and reinforcement learning projects.",
+    keywords: [
+        "Data Science",
+        "Machine Learning",
+        "Quantitative Finance",
+        "Time Series",
+        "Signal Processing",
+        "Reinforcement Learning",
+        "Python",
+        "R",
+        "C++",
+        "Portfolio",
+    ],
+    authors: [{ name: "Ibrahim Youssouf Abdelatif" }],
+    metadataBase: new URL("https://ibrahim-abdelatif.vercel.app"),
     openGraph: {
-        title: "Ibrahim Youssouf ABDELATIF | Data Scientist – ML & GenAI",
-        description: "Data Science & Machine Learning Portfolio - Finance, Tech & Strategy",
+        title: "Ibrahim Youssouf Abdelatif | Data Science and Quantitative ML",
+        description:
+            "Applied mathematics, machine learning, quantitative modeling, and end-to-end project delivery.",
         type: "website",
-        url: 'https://ibrahim-abdelatif.vercel.app',
-        siteName: 'Ibrahim ABDELATIF Portfolio',
-        locale: 'en_US',
+        url: "https://ibrahim-abdelatif.vercel.app",
+        siteName: "Ibrahim Abdelatif Portfolio",
+        locale: "en_US",
         images: [
             {
-                url: '/og-image.png',
+                url: "/og-image.png",
                 width: 1200,
                 height: 630,
-                alt: 'Ibrahim Youssouf ABDELATIF - Data Scientist Portfolio',
+                alt: "Ibrahim Abdelatif portfolio preview",
             },
         ],
     },
     twitter: {
-        card: 'summary_large_image',
-        title: "Ibrahim Youssouf ABDELATIF | Data Scientist",
-        description: "ML & GenAI Portfolio - Paris-Dauphine University",
-        images: ['/og-image.png'],
+        card: "summary_large_image",
+        title: "Ibrahim Youssouf Abdelatif | Data Science and Quantitative ML",
+        description:
+            "Portfolio focused on end-to-end machine learning, quant, signal processing, and RL projects.",
+        images: ["/og-image.png"],
     },
     robots: {
         index: true,
@@ -43,9 +72,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className="grain antialiased">
+            <body className={`${sans.variable} ${mono.variable} grain antialiased`}>
                 {children}
-                <Analytics /> {/* 2. Ajout du composant ici */}
+                <Analytics />
             </body>
         </html>
     );

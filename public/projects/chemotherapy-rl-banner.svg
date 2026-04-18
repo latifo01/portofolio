@@ -1,0 +1,26 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="32" fill="#08131F"/>
+  <rect x="42" y="42" width="1516" height="816" rx="28" fill="url(#bg)"/>
+  <circle cx="300" cy="226" r="170" fill="#3DD6C6" opacity="0.18"/>
+  <circle cx="1290" cy="240" r="128" fill="#F2B24B" opacity="0.18"/>
+  <rect x="120" y="160" width="640" height="536" rx="28" fill="#0F2236" stroke="#284E68"/>
+  <path d="M182 550C236 548 288 520 338 460C386 402 420 340 474 320C526 300 582 330 632 310C680 290 706 236 734 198" stroke="#F2B24B" stroke-width="8" stroke-linecap="round"/>
+  <path d="M182 260C230 284 278 316 326 350C374 384 420 422 472 448C524 474 578 486 628 468C678 450 714 412 736 360" stroke="#8FF3E7" stroke-width="8" stroke-linecap="round"/>
+  <path d="M182 628H732" stroke="#406882" stroke-width="4" stroke-linecap="round"/>
+  <path d="M182 228V628" stroke="#406882" stroke-width="4" stroke-linecap="round"/>
+  <rect x="864" y="186" width="620" height="228" rx="28" fill="#10253C" stroke="#284E68"/>
+  <rect x="864" y="460" width="620" height="236" rx="28" fill="#0D2135" stroke="#284E68"/>
+  <path d="M930 308H1120" stroke="#3DD6C6" stroke-width="18" stroke-linecap="round"/>
+  <path d="M1120 308L1216 240L1294 274V376L1216 410L1120 342" stroke="#8FF3E7" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M930 578L996 542L1082 566L1086 650L998 684L930 636V578Z" stroke="#F2B24B" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M1138 530L1282 530C1324 530 1358 564 1358 606C1358 648 1324 682 1282 682H1138C1096 682 1062 648 1062 606C1062 564 1096 530 1138 530Z" stroke="#8FF3E7" stroke-width="8"/>
+  <text x="118" y="102" fill="#8FF3E7" font-family="Arial, sans-serif" font-size="26" letter-spacing="8">RL FOR CONTROL</text>
+  <text x="118" y="820" fill="#F5F7FB" font-family="Arial, sans-serif" font-size="72" font-weight="700">Chemotherapy Dose Control</text>
+  <text x="118" y="870" fill="#B3C6D8" font-family="Arial, sans-serif" font-size="28">Q-learning agent under treatment and safety constraints</text>
+  <defs>
+    <linearGradient id="bg" x1="72" y1="72" x2="1498" y2="834" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1828"/>
+      <stop offset="1" stop-color="#10243A"/>
+    </linearGradient>
+  </defs>
+</svg>

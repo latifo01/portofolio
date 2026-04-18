@@ -1,172 +1,331 @@
-
-"use client";
-
-import { motion } from "framer-motion";
+import Link from "next/link";
 import { Github } from "lucide-react";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MathBlock from "@/components/MathBlock";
+import Navbar from "@/components/Navbar";
 
-const theories = [
+interface MethodCard {
+    id: string;
+    title: string;
+    source: string;
+    description: string;
+    formula: string;
+    sections: Array<{
+        title: string;
+        body: string;
+    }>;
+    takeaways: string[];
+    projectLink: string;
+    githubLink?: string;
+}
+
+const methodCards: MethodCard[] = [
     {
         id: "bellman",
-        title: "Bellman Optimality Equation",
-        source: "Reinforcement Learning Project",
-        description: "The Bellman equation describes the relationship between the value of a state and the values of successor states. It forms the foundation of dynamic programming solutions to MDPs.",
-        formula: "V^*(s) = \\max_a \\left[ \\sum_{s'} P(s'|s,a) \\times (R(s'|s,a) + \\gamma V^*(s')) \\right]",
-        explanation: [
-            "$V^*(s)$ is the optimal value function for state $s$",
-            "$P(s'|s,a)$ is the transition probability from $s$ to $s'$ given action $a$",
-            "$R(s'|s,a)$ is the reward for the transition",
-            "$\\gamma$ (gamma) is the discount factor for future rewards ($0 < \\gamma < 1$)",
+        title: "Bellman optimality and value iteration",
+        source: "MDP and Dynamic Programming in C++",
+        description:
+            "The Bellman equation rewrites a sequential decision problem as a fixed-point problem. Once the transition kernel and reward function are known, dynamic programming turns policy search into repeated value updates.",
+        formula:
+            "V^*(s) = \\max_a \\left[ \\sum_{s'} P(s'|s,a) \\left(R(s,a,s') + \\gamma V^*(s')\\right) \\right]",
+        sections: [
+            {
+                title: "Core object",
+                body:
+                    "The value function V*(s) is the best discounted reward attainable from state s. The optimal policy is obtained by selecting the action that maximizes the Bellman operator at each state.",
+            },
+            {
+                title: "Why it matters",
+                body:
+                    "This is the cleanest way to separate modeling assumptions from optimization. If the model is explicit, policy computation becomes transparent, testable, and reproducible.",
+            },
+            {
+                title: "Research reflex",
+                body:
+                    "Before running value iteration, I check whether the state space is small enough for exact dynamic programming, whether rewards are well-scaled, and whether gamma implies a contraction strong enough for stable convergence.",
+            },
+        ],
+        takeaways: [
+            "Model-based dynamic programming is not the same thing as model-free reinforcement learning.",
+            "Convergence is driven by repeated Bellman backups, not by ad hoc search over policies.",
         ],
         projectLink: "/projects/reinforcement-learning",
-        githubLink: "https://github.com/latifo01/reinforcement-learning-mdp/blob/main/src/ProgDym.cpp",
+        githubLink: "https://github.com/latifo01/reinforcement-learning-mdp",
     },
     {
         id: "importance-sampling",
-        title: "Importance Sampling",
-        source: "Monte Carlo Methods Project",
-        description: "Importance sampling is a variance reduction technique that samples from a proposal distribution and reweights the samples. It's particularly useful for estimating rare event probabilities.",
-        formula: "\\delta_{IS} = \\frac{1}{n} \\sum_{i=1}^n \\frac{f(X_i) \\cdot \\mathbb{1}_{\\{X_i \\geq q\\}}}{g(X_i)}",
-        explanation: [
-            "$f(x)$ is the target density function",
-            "$g(x)$ is the proposal distribution (e.g., Cauchy centered at $q$)",
-            "$\\mathbb{1}_{\\{X_i \\geq q\\}}$ is the indicator function",
-            "Variance reduction is achieved when $g(x)$ is chosen to match the integrand shape",
+        title: "Importance sampling for tail estimation",
+        source: "Monte Carlo Methods for Quantile Estimation",
+        description:
+            "Importance sampling is a change-of-measure technique. Instead of sampling where the probability mass is common, it deliberately samples where the estimator is expensive or rare, then reweights to remain unbiased.",
+        formula:
+            "\\hat{\\delta}_{IS} = \\frac{1}{n} \\sum_{i=1}^{n} \\frac{f(X_i) \\mathbf{1}_{\\{X_i \\ge q\\}}}{g(X_i)}",
+        sections: [
+            {
+                title: "Core object",
+                body:
+                    "The target density is f and the proposal density is g. The estimator remains valid as long as g has support wherever the target integrand matters.",
+            },
+            {
+                title: "Why it matters",
+                body:
+                    "For rare events, naive Monte Carlo spends most of its budget in regions that contribute almost nothing to the final estimate. Importance sampling moves the simulation effort toward the tail.",
+            },
+            {
+                title: "Research reflex",
+                body:
+                    "I never look only at the point estimate. I also check the weight dispersion, whether the proposal actually covers the tail correctly, and whether the variance reduction is large enough to justify the change of measure.",
+            },
+        ],
+        takeaways: [
+            "A good proposal reduces variance without introducing unstable importance weights.",
+            "In practice, tail estimation quality depends more on the proposal design than on raw simulation volume.",
         ],
         projectLink: "/projects/monte-carlo-methods",
-        githubLink: "https://github.com/latifo01/monte-carlo-methods/blob/main/src/importance_sampling.py",
+        githubLink: "https://github.com/latifo01/monte-carlo-methods",
     },
     {
         id: "kmeans",
-        title: "K-Means Clustering",
-        source: "Customer Segmentation Project",
-        description: "K-Means aims to partition n observations into k clusters by minimizing the within-cluster sum of squares (inertia). Each observation belongs to the cluster with the nearest centroid.",
-        formula: "W = \\sum_{k=1}^K \\sum_{x_i \\in C_k} ||x_i - \\mu_k||^2",
-        explanation: [
-            "$W$ is the total within-cluster variance (inertia)",
-            "$C_k$ is the set of points in cluster $k$",
-            "$\\mu_k$ is the centroid of cluster $k$",
-            "The algorithm iterates: assign points to nearest centroid, update centroids",
+        title: "K-Means as a representation-dependent objective",
+        source: "Customer Segmentation and Environmental Audio Clustering",
+        description:
+            "K-Means is often presented as a simple clustering baseline, but in practice most of its power comes from preprocessing, scaling, and the geometry of the latent space rather than from the optimization routine itself.",
+        formula:
+            "W = \\sum_{k=1}^{K} \\sum_{x_i \\in C_k} \\lVert x_i - \\mu_k \\rVert^2",
+        sections: [
+            {
+                title: "Core object",
+                body:
+                    "The objective minimizes within-cluster inertia around centroids. The algorithm alternates assignment and centroid updates, but the problem remains non-convex and sensitive to initialization.",
+            },
+            {
+                title: "Why it matters",
+                body:
+                    "The same objective can behave very differently across raw variables, PCA factors, UMAP embeddings, or transformer representations. That is why clustering quality is often a feature-space question before it is an algorithm question.",
+            },
+            {
+                title: "Research reflex",
+                body:
+                    "I check scaling, latent dimension, cluster stability across seeds, and internal metrics such as silhouette or Davies-Bouldin. I do not treat a clean-looking cluster plot as sufficient evidence on its own.",
+            },
+        ],
+        takeaways: [
+            "Good clustering results usually come from better representations, not from decorative model changes.",
+            "The objective is simple, but the methodological discipline around it matters a lot.",
         ],
         projectLink: "/projects/customer-segmentation",
-        githubLink: "https://github.com/latifo01/customer-segmentation/blob/main/app/app.R",
+        githubLink: "https://github.com/latifo01/Segmentation-des-clients",
     },
     {
-        id: "boxcox",
-        title: "Box-Cox Transformation",
-        source: "Bike Sharing GLM Project",
-        description: "Box-Cox transformation is used to stabilize variance and make the data more normally distributed. It's a family of power transformations indexed by parameter λ.",
-        formula: "y^{(\\lambda)} = \\begin{cases} \\dfrac{y^\\lambda - 1}{\\lambda} & \\text{if } \\lambda \\neq 0 \\\\ \\ln(y) & \\text{if } \\lambda = 0 \\end{cases}",
-        explanation: [
-            "$\\lambda = 1$: No transformation (linear)",
-            "$\\lambda = 0$: Natural logarithm transformation",
-            "$\\lambda = 0.5$: Square root transformation",
-            "$\\lambda = -1$: Reciprocal transformation",
+        id: "garch",
+        title: "GARCH(1,1) and conditional volatility",
+        source: "Financial Time Series and Actuarial Modeling",
+        description:
+            "Financial prices are often close to random walks in level, but volatility is not. GARCH models exploit this asymmetry by modeling the dynamics of conditional variance rather than forcing predictability where there is little in the mean.",
+        formula:
+            "\\sigma_t^2 = \\omega + \\alpha \\varepsilon_{t-1}^2 + \\beta \\sigma_{t-1}^2",
+        sections: [
+            {
+                title: "Core object",
+                body:
+                    "Conditional variance today depends on a long-run level omega, yesterday's shock magnitude, and yesterday's variance. Large moves create volatility clustering because shocks feed into future risk estimates.",
+            },
+            {
+                title: "Why it matters",
+                body:
+                    "For risk measurement, derivatives, and market diagnostics, volatility is often the object that remains forecastable even when returns themselves are close to unpredictable.",
+            },
+            {
+                title: "Research reflex",
+                body:
+                    "I fit GARCH on returns, not price levels, and I check persistence, residual diagnostics, and whether Gaussian innovations are too optimistic. In the portfolio project, Student-t innovations were more credible because of fat tails.",
+            },
         ],
-        projectLink: "/projects/bike-sharing-glm",
-        githubLink: "https://github.com/latifo01/bike-sharing-prediction/blob/main/src/pipelines/training_pipeline.py",
+        takeaways: [
+            "The key question is often not whether price levels can be forecast, but whether conditional risk can be modeled well.",
+            "Heavy tails are not a cosmetic choice; they change the plausibility of the fitted risk model.",
+        ],
+        projectLink: "/projects/financial-time-series",
+    },
+    {
+        id: "adf",
+        title: "Unit roots, differencing, and the ADF test",
+        source: "Financial Time Series and Actuarial Modeling",
+        description:
+            "Before fitting ARIMA, VAR, or macro regressions, I first ask whether the series is stationary. The ADF test is one of the standard tools for deciding whether a level series behaves like an integrated process that should be differenced.",
+        formula:
+            "\\Delta y_t = \\alpha + \\beta t + \\gamma y_{t-1} + \\sum_{i=1}^{p} \\phi_i \\Delta y_{t-i} + \\varepsilon_t",
+        sections: [
+            {
+                title: "Core object",
+                body:
+                    "The null hypothesis is a unit root, which means the series is non-stationary in level. The lagged differences are added so that short-run autocorrelation does not contaminate the test.",
+            },
+            {
+                title: "Why it matters",
+                body:
+                    "If a series is I(1), regressions in level can look impressive while being almost entirely spurious. In quantitative work, checking integration order is basic hygiene before interpreting coefficients or forecasting performance.",
+            },
+            {
+                title: "Research reflex",
+                body:
+                    "I choose the deterministic part carefully, compare the result with visual diagnostics and ACF behavior, and then work on returns or differences when the data behaves like a random walk. In finance, this often changes the whole modeling strategy.",
+            },
+        ],
+        takeaways: [
+            "A strong-looking regression can be statistically empty if the underlying series is not stationary.",
+            "Differencing is not a technical nuisance; it determines what object is actually being modeled.",
+        ],
+        projectLink: "/projects/financial-time-series",
+    },
+    {
+        id: "granger-var",
+        title: "Granger causality, VARs, and predictive structure",
+        source: "Financial Time Series and Actuarial Modeling",
+        description:
+            "In macro and financial data, I separate predictive content from structural causality. Granger tests and VAR models are useful because they ask a modest question: do lagged values of one series improve the forecast of another?",
+        formula:
+            "y_t = c + A_1 y_{t-1} + \\cdots + A_p y_{t-p} + \\varepsilon_t",
+        sections: [
+            {
+                title: "Core object",
+                body:
+                    "A VAR stacks several time series into one system. Granger causality in that setting means testing whether the lagged coefficients of one variable in another variable's equation are jointly zero.",
+            },
+            {
+                title: "Why it matters",
+                body:
+                    "This gives a disciplined way to talk about lead-lag structure without pretending to have identified a structural economic mechanism. In the portfolio project, construction activity had predictive content for GDP growth, which is economically plausible and empirically testable.",
+            },
+            {
+                title: "Research reflex",
+                body:
+                    "I difference non-stationary series first, control the lag order, and interpret impulse responses and out-of-sample RMSE alongside the test. I do not translate a Granger result into a causal claim without stronger identification.",
+            },
+        ],
+        takeaways: [
+            "Predictive precedence is weaker than structural causality, but still useful for research and forecasting.",
+            "VARs are informative only when the dimensionality stays compatible with the sample size.",
+        ],
+        projectLink: "/projects/financial-time-series",
+    },
+    {
+        id: "kpca",
+        title: "Kernel PCA for nonlinear denoising",
+        source: "ECG Signal Denoising",
+        description:
+            "Kernel PCA extends PCA by replacing linear covariance structure with a kernel-induced feature space. That makes it useful when the signal geometry is nonlinear and linear components no longer separate signal from noise well enough.",
+        formula:
+            "\\widetilde{K} \\alpha_k = \\lambda_k \\alpha_k",
+        sections: [
+            {
+                title: "Core object",
+                body:
+                    "Instead of diagonalizing a covariance matrix in the original space, Kernel PCA diagonalizes the centered kernel matrix. The eigenvectors define principal directions in an implicit nonlinear feature map.",
+            },
+            {
+                title: "Why it matters",
+                body:
+                    "For ECG denoising, the structure of the waveform is not purely linear. Kernel PCA can preserve morphology better than standard PCA when the signal manifold is curved or locally nonlinear.",
+            },
+            {
+                title: "Research reflex",
+                body:
+                    "I treat the kernel and its scale parameter as modeling assumptions, not defaults. In the denoising benchmark, the point was not to declare one method universally superior, but to compare methods across noise regimes and records with a common MSE protocol.",
+            },
+        ],
+        takeaways: [
+            "Kernel methods are useful when linear projections discard too much structure.",
+            "Benchmarking by noise type is often more informative than reporting a single aggregate win.",
+        ],
+        projectLink: "/projects/ecg-signal-denoising",
+        githubLink: "https://github.com/latifo01/memoire_ecg",
     },
 ];
 
 export default function TheoryPage() {
-    // Helper to parse text with inline math delimiters ($...$)
-    const renderWithMath = (text: string) => {
-        const parts = text.split(/(\$[^\$]+\$)/g);
-        return parts.map((part, index) => {
-            if (part.startsWith("$") && part.endsWith("$")) {
-                const formula = part.slice(1, -1);
-                return <MathBlock key={index} formula={formula} block={false} />;
-            }
-            return <span key={index}>{part}</span>;
-        });
-    };
-
     return (
         <main className="min-h-screen">
             <Navbar />
 
-            <section className="pt-32 pb-24 px-6">
-                <div className="max-w-4xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-center mb-16"
-                    >
-                        <h1 className="text-5xl font-bold mb-4">
-                            Core <span className="gradient-text">Theory</span>
+            <section className="px-6 pb-24 pt-32">
+                <div className="section-shell max-w-6xl">
+                    <div className="mb-14 max-w-4xl">
+                        <div className="eyebrow mb-5">Methods</div>
+                        <h1 className="text-5xl font-semibold md:text-6xl">
+                            Crash courses on the methods that recur across the portfolio.
                         </h1>
-                        <p className="text-foreground/60 max-w-2xl mx-auto">
-                            Mathematical foundations behind my projects. Each concept links directly to
-                            the corresponding project implementation on GitHub.
+                        <p className="mt-5 text-lg leading-relaxed text-foreground/68">
+                            This page is written as a compact research note rather than a formula gallery. For each
+                            topic, I keep the same structure: what the object is, why it matters in practice, and what
+                            I check before trusting the result.
                         </p>
-                    </motion.div>
+                    </div>
 
-                    {/* Theory Cards */}
                     <div className="space-y-8">
-                        {theories.map((theory, i) => (
-                            <motion.article
-                                key={theory.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                className="glass-card p-8"
-                            >
-                                {/* Header */}
-                                <div className="flex items-start justify-between mb-4">
-                                    <div>
-                                        <h2 className="text-2xl font-bold mb-1">{theory.title}</h2>
-                                        <p className="text-sm text-primary-light font-code">
-                                            Source: {theory.source}
+                        {methodCards.map((card) => (
+                            <article key={card.id} className="glass-card p-8 md:p-9">
+                                <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+                                    <div className="max-w-3xl">
+                                        <p className="font-code text-xs uppercase tracking-[0.22em] text-primary-light mb-3">
+                                            {card.source}
+                                        </p>
+                                        <h2 className="text-3xl font-semibold md:text-4xl">{card.title}</h2>
+                                        <p className="mt-4 text-base leading-relaxed text-foreground/68 md:text-lg">
+                                            {card.description}
                                         </p>
                                     </div>
-                                    <div className="flex gap-2">
-                                        <a
-                                            href={theory.githubLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-1 text-sm text-foreground/50 hover:text-primary-light transition-colors px-3 py-1 glass-card"
+
+                                    <div className="flex flex-wrap gap-3">
+                                        {card.githubLink && (
+                                            <a
+                                                href={card.githubLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 rounded-full border border-border bg-white/5 px-4 py-2 text-sm text-foreground/76 transition-colors hover:bg-white/10 hover:text-foreground"
+                                            >
+                                                <Github className="h-4 w-4" />
+                                                Code
+                                            </a>
+                                        )}
+                                        <Link
+                                            href={card.projectLink}
+                                            className="inline-flex items-center gap-2 rounded-full border border-border bg-white/5 px-4 py-2 text-sm text-foreground/76 transition-colors hover:bg-white/10 hover:text-foreground"
                                         >
-                                            <Github className="w-4 h-4" />
-                                            Code
-                                        </a>
-                                        <a
-                                            href={theory.projectLink}
-                                            className="text-sm text-foreground/50 hover:text-primary-light transition-colors px-3 py-1 glass-card"
-                                        >
-                                            Project →
-                                        </a>
+                                            Related project
+                                        </Link>
                                     </div>
                                 </div>
 
-                                {/* Description */}
-                                <p className="text-foreground/70 mb-6">
-                                    {theory.description}
-                                </p>
-
-                                {/* Formula */}
-                                <div className="bg-background/50 rounded-lg p-6 mb-6 text-center overflow-x-auto">
-                                    <div className="text-xl text-primary-light">
-                                        <MathBlock formula={theory.formula} />
-                                    </div>
+                                <div className="mt-8 rounded-[24px] border border-border bg-background/40 p-6 text-center text-xl text-primary-light md:p-8">
+                                    <MathBlock formula={card.formula} />
                                 </div>
 
-                                {/* Explanation */}
-                                <div>
-                                    <h3 className="text-sm font-semibold text-foreground/50 uppercase tracking-wider mb-3">
-                                        Where:
-                                    </h3>
-                                    <ul className="space-y-2">
-                                        {theory.explanation.map((item, j) => (
-                                            <li key={j} className="flex items-center flex-wrap gap-x-1 text-sm text-foreground/60">
-                                                <span className="text-primary mr-1">•</span>
-                                                {renderWithMath(item)}
-                                            </li>
-                                        ))}
-                                    </ul>
+                                <div className="mt-8 grid gap-4 lg:grid-cols-3">
+                                    {card.sections.map((section) => (
+                                        <div
+                                            key={section.title}
+                                            className="rounded-[22px] border border-border bg-white/5 p-5"
+                                        >
+                                            <p className="font-code text-xs uppercase tracking-[0.2em] text-primary-light mb-3">
+                                                {section.title}
+                                            </p>
+                                            <p className="text-sm leading-relaxed text-foreground/72">{section.body}</p>
+                                        </div>
+                                    ))}
                                 </div>
-                            </motion.article>
+
+                                <div className="mt-6 grid gap-4 md:grid-cols-2">
+                                    {card.takeaways.map((takeaway) => (
+                                        <div
+                                            key={takeaway}
+                                            className="rounded-2xl border border-border bg-background/35 px-4 py-4 text-sm leading-relaxed text-foreground/72"
+                                        >
+                                            {takeaway}
+                                        </div>
+                                    ))}
+                                </div>
+                            </article>
                         ))}
                     </div>
                 </div>

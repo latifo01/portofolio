@@ -1,0 +1,41 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="32" fill="#08131F"/>
+  <rect x="42" y="42" width="1516" height="816" rx="28" fill="url(#bg)"/>
+  <g opacity="0.25">
+    <circle cx="276" cy="244" r="168" fill="#3DD6C6"/>
+    <circle cx="1278" cy="218" r="118" fill="#F2B24B"/>
+  </g>
+  <rect x="118" y="170" width="636" height="484" rx="28" fill="#0E2135" stroke="#284E68"/>
+  <rect x="818" y="170" width="662" height="484" rx="28" fill="#10253C" stroke="#284E68"/>
+  <g>
+    <circle cx="248" cy="336" r="12" fill="#3DD6C6"/>
+    <circle cx="298" cy="296" r="12" fill="#3DD6C6"/>
+    <circle cx="352" cy="344" r="12" fill="#3DD6C6"/>
+    <circle cx="388" cy="292" r="12" fill="#3DD6C6"/>
+    <circle cx="564" cy="506" r="12" fill="#F2B24B"/>
+    <circle cx="604" cy="462" r="12" fill="#F2B24B"/>
+    <circle cx="652" cy="520" r="12" fill="#F2B24B"/>
+    <circle cx="694" cy="470" r="12" fill="#F2B24B"/>
+    <circle cx="460" cy="408" r="12" fill="#8FF3E7"/>
+    <circle cx="506" cy="368" r="12" fill="#8FF3E7"/>
+    <circle cx="540" cy="430" r="12" fill="#8FF3E7"/>
+    <circle cx="598" cy="398" r="12" fill="#8FF3E7"/>
+  </g>
+  <path d="M900 270L1000 238L1106 278L1084 390L980 432L878 378L900 270Z" stroke="#8FF3E7" stroke-width="6"/>
+  <path d="M900 270L980 296L1106 278" stroke="#3DD6C6" stroke-width="4"/>
+  <path d="M980 432L980 296" stroke="#3DD6C6" stroke-width="4"/>
+  <path d="M1084 390L980 296L878 378" stroke="#F2B24B" stroke-width="4"/>
+  <rect x="850" y="482" width="590" height="108" rx="20" fill="#0B1A2B" stroke="#284E68"/>
+  <rect x="884" y="520" width="118" height="26" rx="13" fill="#17344B"/>
+  <rect x="1030" y="520" width="152" height="26" rx="13" fill="#17344B"/>
+  <rect x="1210" y="520" width="184" height="26" rx="13" fill="#17344B"/>
+  <text x="118" y="102" fill="#8FF3E7" font-family="Arial, sans-serif" font-size="26" letter-spacing="8">MARKETING ANALYTICS</text>
+  <text x="118" y="820" fill="#F5F7FB" font-family="Arial, sans-serif" font-size="72" font-weight="700">Customer Segmentation Dashboard</text>
+  <text x="118" y="870" fill="#B3C6D8" font-family="Arial, sans-serif" font-size="28">Clustering, profiling, and Shiny exploration for 2,240 clients</text>
+  <defs>
+    <linearGradient id="bg" x1="64" y1="72" x2="1496" y2="834" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1828"/>
+      <stop offset="1" stop-color="#10243A"/>
+    </linearGradient>
+  </defs>
+</svg>
