@@ -1,103 +1,92 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Sparkles, Brain, MessageSquare, Zap } from "lucide-react";
-import Navbar from "@/components/Navbar";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2, ShieldCheck, TriangleAlert } from "lucide-react";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import ProjectCard from "@/components/ProjectCard";
+import { projects } from "@/data/projects";
 
-const plannedProjects = [
-    {
-        title: "RAG Pipeline",
-        description: "Retrieval-Augmented Generation system for document Q&A",
-        icon: Brain,
-        status: "Planned",
-    },
-    {
-        title: "Fine-tuning LLMs",
-        description: "Domain-specific model adaptation for specialized tasks",
-        icon: Zap,
-        status: "Planned",
-    },
-    {
-        title: "Prompt Engineering",
-        description: "Advanced prompting techniques and chain-of-thought reasoning",
-        icon: MessageSquare,
-        status: "Planned",
-    },
+export const metadata: Metadata = {
+    title: "Applied AI systems",
+    description: "Applied AI systems built with RAG, agents, deterministic safeguards, tests and human review.",
+};
+
+const aiProjects = projects.filter((project) => project.categories.includes("applied-ai"));
+
+const boundaries = [
+    { title: "Structured output", detail: "Pydantic contracts reject malformed or out-of-range model responses." },
+    { title: "Deterministic controls", detail: "Statistical and safety rules remain testable outside the model path." },
+    { title: "Human authority", detail: "Approval and final decisions stay with the user in high-impact workflows." },
+    { title: "Evaluation scope", detail: "Rule tests, retrieval quality and end-to-end model behavior are reported separately." },
 ];
 
-export default function LLMPage() {
+export default function AppliedAIPage() {
     return (
-        <main className="min-h-screen">
+        <main id="main-content" className="min-h-screen">
             <Navbar />
-
-            <section className="pt-32 pb-24 px-6">
-                <div className="max-w-4xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-center mb-16"
-                    >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 glass-card mb-6">
-                            <Sparkles className="w-4 h-4 text-primary" />
-                            <span className="text-sm font-code text-primary-light">Coming Soon</span>
+            <section className="px-3 pb-20 pt-28 sm:px-6 sm:pb-28 sm:pt-36">
+                <div className="section-shell">
+                    <header className="grid gap-8 border-b border-foreground pb-10 lg:grid-cols-[0.68fr_1.32fr] lg:items-end">
+                        <div>
+                            <span className="section-label">Applied AI systems</span>
+                            <p className="mt-5 font-code text-[10px] uppercase tracking-[0.15em] text-foreground/48">No “coming soon” claims · working repositories only</p>
                         </div>
+                        <div>
+                            <h1 className="text-5xl font-bold leading-[0.92] tracking-[-0.065em] sm:text-7xl">The LLM is one component. <span className="display-serif text-primary">The system is the work.</span></h1>
+                            <p className="mt-6 max-w-3xl text-base leading-relaxed text-foreground/64 sm:text-lg">These projects focus on orchestration, validation, retrieval, interfaces and failure boundaries — the layers between a promising model call and a usable product.</p>
+                        </div>
+                    </header>
 
-                        <h1 className="text-5xl font-bold mb-4">
-                            LLM & <span className="gradient-text">GenAI</span>
-                        </h1>
-                        <p className="text-foreground/60 max-w-2xl mx-auto">
-                            Upcoming projects exploring Large Language Models, Retrieval-Augmented Generation,
-                            and Generative AI applications.
-                        </p>
-                    </motion.div>
-
-                    {/* Planned Projects */}
-                    <div className="grid md:grid-cols-3 gap-6 mb-16">
-                        {plannedProjects.map((project, i) => (
-                            <motion.div
-                                key={project.title}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                className="glass-card p-6 text-center"
-                            >
-                                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                                    <project.icon className="w-6 h-6 text-primary" />
-                                </div>
-                                <h3 className="text-lg font-bold mb-2">{project.title}</h3>
-                                <p className="text-sm text-foreground/60 mb-4">{project.description}</p>
-                                <span className="inline-block px-3 py-1 text-xs font-code bg-secondary/10 text-secondary-light rounded-full">
-                                    {project.status}
-                                </span>
-                            </motion.div>
-                        ))}
+                    <div className="mt-8 grid gap-5 md:grid-cols-2">
+                        {aiProjects.map((project) => <ProjectCard key={project.id} project={project} />)}
                     </div>
 
-                    {/* Teaser */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="glass-card p-8 text-center"
-                    >
-                        <h2 className="text-2xl font-bold mb-4">Stay Tuned</h2>
-                        <p className="text-foreground/60 mb-6 max-w-lg mx-auto">
-                            I&apos;m currently exploring the intersection of LLMs and traditional ML.
-                            New projects in RAG, fine-tuning, and prompt engineering are in development.
-                        </p>
-                        <a
-                            href="https://www.linkedin.com/in/abdelatif-ibrahim/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-accent-gradient rounded-full font-semibold glow-hover transition-all duration-300 hover:scale-105"
-                        >
-                            Follow Updates on LinkedIn
-                        </a>
-                    </motion.div>
+                    <section className="mt-20 grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+                        <div>
+                            <span className="section-label">Engineering boundary</span>
+                            <h2 className="mt-6 text-4xl font-bold leading-none tracking-[-0.05em]">What sits around the model.</h2>
+                            <p className="mt-5 text-sm leading-relaxed text-foreground/62">A reliable AI system needs more than an orchestration diagram. These are the controls currently demonstrated in the public work.</p>
+                        </div>
+                        <div className="grid gap-4 sm:grid-cols-2">
+                            {boundaries.map((boundary, index) => (
+                                <article key={boundary.title} className="paper-card p-6">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-code text-[10px] font-bold text-primary">0{index + 1}</span>
+                                        <CheckCircle2 className="h-4 w-4 text-[#2f9d67]" />
+                                    </div>
+                                    <h3 className="mt-5 text-xl font-bold">{boundary.title}</h3>
+                                    <p className="mt-3 text-sm leading-relaxed text-foreground/62">{boundary.detail}</p>
+                                </article>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section className="mt-20 border border-foreground bg-foreground text-white">
+                        <div className="grid lg:grid-cols-2">
+                            <div className="p-7 sm:p-10">
+                                <p className="inline-flex items-center gap-2 font-code text-[10px] font-bold uppercase tracking-[0.16em] text-[#a9efc8]"><ShieldCheck className="h-4 w-4" /> Demonstrated now</p>
+                                <ul className="mt-6 space-y-4 text-sm leading-relaxed text-white/72">
+                                    <li>FastAPI services and React/Streamlit interfaces</li>
+                                    <li>LangGraph orchestration and retrieval pipelines</li>
+                                    <li>Schema validation, repair loops and deterministic tests</li>
+                                    <li>Vercel and Cloud Run deployment</li>
+                                </ul>
+                            </div>
+                            <div className="border-t border-white/20 bg-white/5 p-7 sm:p-10 lg:border-l lg:border-t-0">
+                                <p className="inline-flex items-center gap-2 font-code text-[10px] font-bold uppercase tracking-[0.16em] text-[#ff9b86]"><TriangleAlert className="h-4 w-4" /> Still being strengthened</p>
+                                <ul className="mt-6 space-y-4 text-sm leading-relaxed text-white/72">
+                                    <li>End-to-end multilingual and retrieval evaluation</li>
+                                    <li>Authentication, rate limiting and data-retention controls</li>
+                                    <li>Production observability for quality, latency and cost</li>
+                                    <li>Provider-independent test isolation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div className="mt-10 flex justify-end"><Link href="/projects" className="button-secondary">Browse the full evidence library <ArrowRight className="h-4 w-4" /></Link></div>
                 </div>
             </section>
-
             <Footer />
         </main>
     );

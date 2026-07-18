@@ -23,6 +23,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: "monthly",
             priority: 0.7,
         },
+        {
+            url: `${baseUrl}/llm`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.85,
+        },
+        {
+            url: `${baseUrl}/resume`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
         ...projects.map((project) => ({
             url: `${baseUrl}/projects/${project.id}`,
             lastModified: new Date(),

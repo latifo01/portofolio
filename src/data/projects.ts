@@ -1,340 +1,380 @@
-export type ProjectCategory = "ml" | "quant" | "signal" | "rl";
+export type ProjectCategory = "applied-ai" | "data-science" | "ml-systems" | "quant";
 
-export interface ProjectMetric {
-    label: string;
+export interface ProjectEvidence {
     value: string;
+    label: string;
+    note: string;
+}
+
+export interface ProjectLink {
+    label: string;
+    href: string;
+    kind: "code" | "demo" | "report";
 }
 
 export interface Project {
     id: string;
+    ordinal: string;
     title: string;
+    shortTitle: string;
     tagline: string;
     summary: string;
     description: string;
+    context: string;
+    status: string;
+    featured: boolean;
+    categories: ProjectCategory[];
+    technologies: string[];
+    image?: string;
+    visual: "clinical" | "agent" | "risk" | "segments" | "timeseries" | "simulation";
+    evidence: ProjectEvidence[];
     problem: string;
     approach: string;
-    impact: string;
-    role: string;
-    context: string;
-    technologies: string[];
-    metrics: ProjectMetric[];
+    outcome: string;
+    validation: string;
+    limitation: string;
+    architecture: string[];
     highlights: string[];
-    featured: boolean;
-    image?: string;
-    github?: string;
-    demoUrl?: string;
-    categories: ProjectCategory[];
+    nextSteps: string[];
+    role: string;
+    links: ProjectLink[];
 }
 
 export const projects: Project[] = [
     {
-        id: "credit-risk-modelling",
-        title: "Credit Risk Modelling",
-        tagline: "Loan approval scoring pipeline from experimentation to batch inference",
+        id: "imciflow",
+        ordinal: "01",
+        title: "ImciFlow — grounded pediatric triage",
+        shortTitle: "ImciFlow",
+        tagline: "LLM extraction, RAG evidence and deterministic IMCI rules in one auditable workflow.",
         summary:
-            "Refactored an academic credit scoring study into a modular Python project with training, feature engineering, batch inference, business-facing risk bands, and Docker packaging.",
+            "A multilingual clinical decision-support prototype that combines Gemma 4, retrieval over IMCI references, deterministic safety rules and a human-review boundary.",
         description:
-            "This project turns a notebook-driven loan approval classifier into a reproducible end-to-end workflow. It combines model comparison, tuned XGBoost training, structured configuration, and a business layer that converts probabilities into usable risk scores.",
+            "ImciFlow explores a safer architecture for high-stakes AI: the model structures multilingual intake, retrieval surfaces source evidence, Python tools keep safety-critical classification deterministic, and the interface exposes missing information instead of hiding uncertainty.",
+        context: "Gemma 4 Hackathon · 2026",
+        status: "Live research demo",
+        featured: true,
+        categories: ["applied-ai", "ml-systems"],
+        technologies: ["Gemma 4", "LangGraph", "FastAPI", "React", "Chroma", "Cloud Run"],
+        image: "/projects/imciflow-thumbnail.png",
+        visual: "clinical",
+        evidence: [
+            { value: "3", label: "languages", note: "English, French and Sudanese Arabic paths" },
+            { value: "15/15", label: "rule cases", note: "Deterministic IMCI evaluation, not a clinical trial" },
+            { value: "2", label: "live services", note: "Vercel frontend and Cloud Run API" },
+        ],
         problem:
-            "Loan approval decisions need more than raw model accuracy: they need reproducible training, reliable inference outputs, and business-friendly risk interpretation.",
+            "Clinicians in constrained settings need fast protocol lookup, multilingual intake and explicit safety checks without delegating the final decision to a generative model.",
         approach:
-            "Built a modular Python codebase with dedicated training and inference entrypoints, feature engineering pipelines, serialized artifacts, YAML configuration, validation notebooks, and Docker support for portable execution.",
-        impact:
-            "Reached 94.97% accuracy, 94.89% F1, and 0.99 ROC-AUC while introducing a RiskScore_ML from 0 to 100 and A-to-E risk levels for decision support.",
-        role: "End-to-end ML pipeline design, model selection, packaging, and business translation",
-        context: "Paris-Dauphine finance and machine learning project",
-        technologies: ["Python", "XGBoost", "scikit-learn", "Pandas", "Docker", "PyYAML"],
-        metrics: [
-            { label: "Accuracy", value: "94.97%" },
-            { label: "F1 score", value: "94.89%" },
-            { label: "ROC-AUC", value: "0.99" },
+            "A graph routes intake through structured extraction, local retrieval, deterministic IMCI tools and a verification step before producing an explanation for human review.",
+        outcome:
+            "The full-stack prototype is deployed and demonstrates traceable evidence, streaming pipeline events, audio/video inputs and an online/offline model-routing concept.",
+        validation:
+            "Backend, frontend and safety tests are present. A 15-case fixture evaluation verifies the deterministic classification layer after symptoms have already been structured.",
+        limitation:
+            "The evaluation does not yet measure end-to-end extraction quality, multilingual robustness or clinical outcomes. The hosted demo is research software and must not be used for diagnosis.",
+        architecture: [
+            "Multimodal intake → structured clinical signals",
+            "IMCI retrieval → cited protocol evidence",
+            "Deterministic safety rules → triage class",
+            "Human review → final decision",
         ],
         highlights: [
-            "Compared four classifiers before locking the best-performing XGBoost model.",
-            "Separated feature engineering, training, and inference into reusable pipeline modules.",
-            "Packaged the workflow with configuration files and Docker for reproducibility.",
-            "Translated model outputs into business-facing risk bands instead of raw probabilities only.",
+            "FastAPI backend and React/Vite interface deployed separately.",
+            "Safety-critical rules are kept outside the LLM path.",
+            "Sessions capture model route, evidence, timing and safety flags for auditability.",
         ],
-        featured: true,
-        image: "/projects/credit-risk-architecture.png",
-        github: "https://github.com/latifo01/Credit-Risk-Modelling",
-        categories: ["ml", "quant"],
+        nextSteps: [
+            "Move verification after translation and expand citation checks.",
+            "Add authentication, rate limiting, encrypted durable storage and retention controls.",
+            "Benchmark extraction, retrieval, multilingual fidelity, latency and cost end to end.",
+        ],
+        role:
+            "Designed and implemented as an end-to-end hackathon system covering product framing, orchestration, backend, frontend integration, evaluation assets and cloud deployment.",
+        links: [
+            { label: "Live demo", href: "https://gemma-4-hackathon.vercel.app", kind: "demo" },
+            { label: "Source code", href: "https://github.com/latifo01/GEMMA-4-HACKATHON", kind: "code" },
+        ],
     },
     {
-        id: "audio-clustering",
-        title: "Environmental Audio Clustering",
-        tagline: "Unsupervised audio pipeline with handcrafted features and Transformer embeddings",
+        id: "genai-data-preprocessing",
+        ordinal: "02",
+        title: "Human-in-the-loop GenAI data preparation",
+        shortTitle: "GenAI Data Prep",
+        tagline: "Deterministic data-quality checks first; LLM recommendations second.",
         summary:
-            "Built a full unsupervised audio clustering workflow on 769 environmental clips, then benchmarked classical acoustic descriptors against AST, wav2vec2, and HuBERT embeddings.",
+            "A LangGraph workflow that profiles a dataset, proposes preprocessing decisions, validates transformations and keeps a human approval point before output generation.",
         description:
-            "This project explores how far unsupervised learning can go on environmental sound data. It starts with acoustic feature engineering, tests multiple clustering algorithms, and then compares them with Transformer-based audio representations to quantify the gain in semantic grouping.",
+            "This project treats the LLM as a bounded recommendation layer rather than a statistical oracle. Target leakage checks, split strategy and transformations remain explicit and testable, while Pydantic contracts and repair loops constrain model responses.",
+        context: "Applied AI engineering · 2026",
+        status: "Tested prototype",
+        featured: true,
+        categories: ["applied-ai", "ml-systems", "data-science"],
+        technologies: ["LangGraph", "FastAPI", "Streamlit", "Pydantic", "OpenAI", "W&B"],
+        visual: "agent",
+        evidence: [
+            { value: "81/81", label: "tests", note: "Verified locally with an isolated test configuration" },
+            { value: "4", label: "workflow stages", note: "Profile, recommend, validate and approve" },
+            { value: "3×", label: "repair budget", note: "Schema-validated LLM retries" },
+        ],
         problem:
-            "Environmental audio is hard to label at scale, so a strong unsupervised pipeline needs to recover structure without supervision and stay interpretable enough for audit.",
+            "Generic preprocessing automation can silently introduce leakage, fit transforms on test data or apply plausible-looking choices without an auditable reason.",
         approach:
-            "Extracted MFCC, chroma, spectral, rhythm, and energy features; compared PCA, whitened PCA, and UMAP spaces; benchmarked K-Means, GMM, Spectral Clustering, and HDBSCAN; then repeated clustering with AST, wav2vec2, and HuBERT embeddings.",
-        impact:
-            "The best classical pipeline reached a silhouette score of 0.376, while AST plus UMAP plus K-Means reached 0.601 with a Davies-Bouldin index of 0.525, showing a clear representation learning advantage.",
-        role: "Research pipeline design, feature engineering, benchmarking, and qualitative audit",
-        context: "Advanced unsupervised learning and audio representation project",
-        technologies: ["Python", "librosa", "scikit-learn", "UMAP", "Transformers", "PyTorch"],
-        metrics: [
-            { label: "Audio clips", value: "769" },
-            { label: "Best silhouette", value: "0.601" },
-            { label: "Best DB index", value: "0.525" },
+            "The workflow separates deterministic statistical rules from LLM suggestions, versions prompts in YAML, validates structured outputs with Pydantic and pauses for human approval.",
+        outcome:
+            "A CLI, Streamlit interface and FastAPI surface share the same pipeline. A local SQLite cache makes repeated development runs faster and avoids duplicate model calls.",
+        validation:
+            "The audited test run passed all 81 tests. Tests cover statistical fallbacks, split strategies, target checks, response contracts and workflow behavior.",
+        limitation:
+            "Data samples can be sent to an external model when that provider is enabled. Production use requires explicit consent, redaction, path/URL restrictions and a retention policy.",
+        architecture: [
+            "Dataset contract → deterministic profiling",
+            "LLM recommendation → Pydantic validation",
+            "Transformation plan → human approval",
+            "Train-only fitting → reproducible artifacts",
         ],
         highlights: [
-            "Benchmarked classical features against three Transformer embedding families.",
-            "Compared four clustering algorithms across several latent spaces instead of tuning one model in isolation.",
-            "Audited cluster quality with both internal metrics and semantic tag inspection.",
-            "Produced a clear final comparison between the best classical and best deep representation pipelines.",
+            "Prompts and model configuration live outside application code.",
+            "Human review is a first-class graph state rather than an interface afterthought.",
+            "Locked dependencies and a dense deterministic test harness support reproducibility.",
         ],
+        nextSteps: [
+            "Inject the LLM client so deterministic tests never require an API key.",
+            "Add PII detection, redaction, encrypted cache storage and time-based deletion.",
+            "Restrict remote URLs and local paths before exposing the API beyond localhost.",
+        ],
+        role:
+            "Built the agent graph, deterministic safeguards, structured-response layer, API, interface, experiment tracking hooks and automated tests.",
+        links: [
+            { label: "Source code", href: "https://github.com/latifo01/Projet-IA-GEN", kind: "code" },
+        ],
+    },
+    {
+        id: "credit-risk-modelling",
+        ordinal: "03",
+        title: "Credit risk modelling with explicit validation scope",
+        shortTitle: "Credit Risk",
+        tagline: "A modular XGBoost pipeline presented with its evidence and its current limits.",
+        summary:
+            "A notebook-to-pipeline refactor for loan approval classification, batch inference and probability-based risk grouping, packaged with YAML configuration and Docker.",
+        description:
+            "The project turns an exploratory credit notebook into separate feature, training and inference modules. The case study deliberately distinguishes the reported holdout results from the validation work still required for a real credit decision system.",
+        context: "Independent ML project · 2025",
+        status: "Reproducible training pipeline",
         featured: true,
-        image: "/projects/audio-clustering-banner.svg",
-        categories: ["ml", "signal"],
+        categories: ["data-science", "ml-systems"],
+        technologies: ["Python", "XGBoost", "scikit-learn", "Pandas", "Docker", "YAML"],
+        image: "/projects/credit-risk-architecture.png",
+        visual: "risk",
+        evidence: [
+            { value: "0.99", label: "ROC-AUC", note: "Reported on one holdout split" },
+            { value: "94.89%", label: "F1", note: "Reported project metric" },
+            { value: "A–E", label: "risk bands", note: "Probability quintiles, not validated grades" },
+        ],
+        problem:
+            "Loan decisions need a repeatable classification workflow and interpretable score outputs, but high headline accuracy alone is not enough for a regulated use case.",
+        approach:
+            "A scikit-learn pipeline applies feature engineering and preprocessing before XGBoost training, serialization and batch inference from versioned configuration.",
+        outcome:
+            "The repository separates experimentation from execution and produces approval probabilities, scores and quintile-based bands through a repeatable command-line flow.",
+        validation:
+            "The current headline metrics come from a single random 70/30 holdout. The code and case study now state that scope explicitly rather than implying production validation.",
+        limitation:
+            "Calibration, temporal validation, fairness, decision cost and threshold sensitivity are not yet demonstrated. The risk bands are descriptive quantiles only.",
+        architecture: [
+            "Raw applications → schema and feature rules",
+            "Preprocessing pipeline → XGBoost classifier",
+            "Holdout evaluation → serialized artifact",
+            "Batch inference → score and risk quintile",
+        ],
+        highlights: [
+            "Training and inference use dedicated entry points.",
+            "Configuration is externalized in YAML and the workflow is containerized.",
+            "Research notebooks preserve the path from EDA to business-oriented evaluation.",
+        ],
+        nextSteps: [
+            "Add stratified cross-validation, calibration and confidence intervals.",
+            "Evaluate subgroup fairness and expected decision cost across thresholds.",
+            "Expose schema-validated inference behind a tested API and CI pipeline.",
+        ],
+        role:
+            "Refactored the full experimental workflow into modular training and inference code, then documented the technical and business interpretation boundaries.",
+        links: [
+            { label: "Source code", href: "https://github.com/latifo01/Credit-Risk-Modelling", kind: "code" },
+        ],
     },
     {
         id: "customer-segmentation",
-        title: "Customer Segmentation Dashboard",
-        tagline: "Clustering, profiling, and dashboarding for marketing decisions",
+        ordinal: "04",
+        title: "Customer segmentation decision dashboard",
+        shortTitle: "Segmentation",
+        tagline: "From clustering diagnostics to an interface a marketing team can actually explore.",
         summary:
-            "Performed unsupervised customer segmentation on 2,240 clients, compared clustering families, and packaged the results in a Shiny dashboard for business exploration.",
+            "An R/Shiny product that compares unsupervised methods, profiles four customer groups and makes the assumptions and cluster diagnostics inspectable.",
         description:
-            "This project combines customer analytics and product thinking. The modeling work identifies meaningful segments, while the dashboard layer makes the output usable by a non-technical team for campaign targeting and profiling.",
-        problem:
-            "Marketing teams need segments that are both statistically meaningful and easy to explore without reopening notebooks or raw data files.",
-        approach:
-            "Prepared the data, engineered customer behavior features, compared K-Means, hierarchical clustering, and GMM, selected four segments, and built a Shiny application with filters, KPIs, and radar profiles.",
-        impact:
-            "Recovered four usable customer groups over 2,240 clients and turned the analysis into a live dashboard instead of a static report.",
-        role: "Unsupervised modeling, feature engineering, visualization, and dashboard delivery",
-        context: "Paris-Dauphine analytics and data visualization project",
-        technologies: ["R", "Shiny", "tidyverse", "ggplot2", "FactoMineR", "plotly"],
-        metrics: [
-            { label: "Clients", value: "2,240" },
-            { label: "Engineered vars", value: "35" },
-            { label: "Clusters", value: "4" },
-        ],
-        highlights: [
-            "Handled missing values and clear outliers before clustering.",
-            "Compared several unsupervised approaches instead of relying on a single algorithm.",
-            "Created radar-style segment profiles to support stakeholder discussion.",
-            "Delivered an interactive interface that moves the project closer to real usage.",
-        ],
+            "The work combines cleaning, feature engineering, K-means/CAH/GMM comparison and an interactive dashboard. The emphasis is not only on cluster labels but on the behaviors a stakeholder can inspect before designing a campaign.",
+        context: "Paris-Dauphine · 2025",
+        status: "Live interactive demo",
         featured: true,
+        categories: ["data-science"],
+        technologies: ["R", "Shiny", "K-means", "CAH", "GMM", "Plotly"],
         image: "/projects/customer-segmentation-banner.svg",
-        github: "https://github.com/latifo01/Segmentation-des-clients",
-        demoUrl:
-            "https://ibrahimabdelatif-segmentation-des-clients.share.connect.posit.cloud",
-        categories: ["ml"],
-    },
-    {
-        id: "chemotherapy-q-learning",
-        title: "Chemotherapy Dose Control with Q-Learning",
-        tagline: "Reinforcement learning for adaptive treatment policies under constraints",
-        summary:
-            "Implemented a reinforcement learning controller for chemotherapy dosing, simulated several patient profiles, and reproduced a robustness study over 15 synthetic patients.",
-        description:
-            "This project sits at the intersection of control, reinforcement learning, and applied modeling. A pharmacological system is simulated with differential equations, while a Q-learning agent learns dosing policies that reduce tumor burden while managing normal-cell preservation constraints.",
+        visual: "segments",
+        evidence: [
+            { value: "2,240", label: "customers", note: "Behavioral and demographic observations" },
+            { value: "3", label: "methods", note: "K-means, hierarchical clustering and GMM" },
+            { value: "4", label: "segments", note: "Selected with elbow and silhouette diagnostics" },
+        ],
         problem:
-            "A treatment policy must balance competing objectives: reducing tumor cells quickly without destroying healthy cells or violating scenario-specific safety constraints.",
+            "A single marketing message ignores meaningful differences in purchasing behavior, engagement, recency and channel preference.",
         approach:
-            "Modeled the treatment dynamics, formalized the control problem as an MDP, trained a tabular Q-learning agent over 50,000 episodes, then evaluated nominal, constrained, and perturbed patient scenarios including pregnancy and comorbidity cases.",
-        impact:
-            "Across the 15-patient simulation, the mean tumor eradication time was about 43 days, and the learned controller remained stable under parameter perturbations ranging from minus 10 percent to plus 15 percent.",
-        role: "Mathematical modeling, RL agent design, robustness analysis, and scenario simulation",
-        context: "Applied reinforcement learning project inspired by a medical control paper",
-        technologies: ["Python", "Q-learning", "SciPy", "NumPy", "Matplotlib"],
-        metrics: [
-            { label: "Training episodes", value: "50k" },
-            { label: "Simulated patients", value: "15" },
-            { label: "Mean eradication", value: "43 days" },
+            "After cleaning and feature engineering, three clustering families are compared with internal diagnostics before the selected partition is translated into stakeholder-readable profiles.",
+        outcome:
+            "The deployed Shiny dashboard supports filtering, PCA views, cluster sizes, radar profiles and re-running the selected clustering configuration.",
+        validation:
+            "Internal validation uses elbow, silhouette and Davies-Bouldin diagnostics. The current silhouette is approximately 0.35, indicating useful but overlapping groups.",
+        limitation:
+            "The segments have not yet been validated through campaign uplift, temporal stability or out-of-sample assignment. They support exploration, not causal targeting claims.",
+        architecture: [
+            "Raw customer table → cleaning and features",
+            "Scaled matrix → three clustering candidates",
+            "Internal diagnostics → selected partition",
+            "Segment profiles → interactive Shiny dashboard",
         ],
         highlights: [
-            "Connected continuous treatment dynamics with a reinforcement learning control policy.",
-            "Tested three clinically different patient scenarios instead of only one nominal case.",
-            "Added robustness analysis under kinetic parameter perturbations.",
-            "Reported distributional outcomes, not just a single success story.",
+            "The interface exposes both diagnostic and stakeholder views.",
+            "Cluster descriptions connect behavior, recency, spending and channels.",
+            "The live application is independently accessible without local setup.",
         ],
-        featured: true,
-        image: "/projects/chemotherapy-rl-banner.svg",
-        categories: ["rl", "signal"],
+        nextSteps: [
+            "Publish the cleaned source repository with a reproducible R environment.",
+            "Measure cluster stability under resampling and across time windows.",
+            "Validate campaign value through an uplift or controlled-experiment design.",
+        ],
+        role:
+            "Led data preparation, method comparison, interpretation and full Shiny dashboard implementation.",
+        links: [
+            {
+                label: "Live dashboard",
+                href: "https://ibrahimabdelatif-segmentation-des-clients.share.connect.posit.cloud",
+                kind: "demo",
+            },
+        ],
     },
     {
         id: "financial-time-series",
-        title: "Financial Time Series and Actuarial Modeling",
-        tagline: "ARIMA, GARCH, ARIMAX, VAR, and causal analysis across market and macro data",
+        ordinal: "05",
+        title: "Financial and macroeconomic time-series laboratory",
+        shortTitle: "Time Series",
+        tagline: "Forecasts are compared with a naïve baseline, not judged by fit alone.",
         summary:
-            "Built an end-to-end econometrics workflow on L'Oreal stock prices and French macroeconomic series, covering stationarity, forecasting, volatility modeling, and multivariate dynamics.",
+            "A reproducible R analysis spanning ARIMA, GARCH, ARIMAX, VAR and Granger tests across market and French macroeconomic series.",
         description:
-            "This project shows quantitative depth beyond standard forecasting tutorials. It combines market data, macro series, model diagnostics, causal tests, and forecast comparison to separate what is predictable from what is not.",
-        problem:
-            "Time series work is often reduced to automatic forecasting, but finance and macro data require diagnostics, stationarity checks, volatility modeling, and careful interpretation of predictive value.",
-        approach:
-            "Analyzed 2,870 daily stock observations and long-horizon quarterly macro series, tested stationarity, compared ARIMA variants, modeled volatility with GARCH under normal and Student-t innovations, ran Granger causality tests, estimated ARIMAX and VAR models, and evaluated out-of-sample RMSE.",
-        impact:
-            "The work showed that price levels behaved like near-random walks, while volatility remained modelable with a GARCH(1,1) Student-t specification. It also identified construction output as a leading macro signal for GDP with a Granger p-value of 0.0003.",
-        role: "Econometric analysis, forecasting, diagnostics, and quantitative interpretation",
-        context: "Time series and actuarial applications project",
-        technologies: ["R", "forecast", "rugarch", "vars", "tseries", "ggplot2"],
-        metrics: [
-            { label: "Stock observations", value: "2,870" },
-            { label: "Annualized vol", value: "23%" },
-            { label: "Granger p-value", value: "0.0003" },
-        ],
-        highlights: [
-            "Separated predictive signal in volatility from weak signal in price levels.",
-            "Used diagnostics and out-of-sample validation instead of trusting automated model selection blindly.",
-            "Combined finance and macroeconomics in a single coherent workflow.",
-            "Showed the limits of over-parameterized multivariate models on small samples.",
-        ],
-        featured: true,
-        image: "/projects/time-series-banner.svg",
-        categories: ["quant"],
-    },
-    {
-        id: "reinforcement-learning",
-        title: "MDP and Dynamic Programming in C++",
-        tagline: "Reusable C++ framework for Value Iteration on discrete decision problems",
-        summary:
-            "Implemented generic MDP classes, a dynamic programming solver, tests, and a robot garbage collector example in modern C++.",
-        description:
-            "This project demonstrates algorithmic rigor and low-level implementation quality. It does not only solve a toy MDP once; it provides reusable abstractions for states, actions, transitions, rewards, and policy computation.",
-        problem:
-            "Understanding reinforcement learning foundations is easier when the algorithmic core is implemented from scratch rather than hidden behind high-level libraries.",
-        approach:
-            "Built template-based MDP classes, implemented a perfect MDP representation, wrote a Value Iteration solver, added tests, and documented the robot example with diagrams and simulation visuals.",
-        impact:
-            "The optimal robot policy outperformed a random policy by about 270 percent and converged in roughly 20 to 30 iterations.",
-        role: "Algorithm implementation, systems programming, testing, and visualization support",
-        context: "Applied mathematics and reinforcement learning project in C++",
-        technologies: ["C++11", "CMake", "Dynamic programming", "Templates", "Testing"],
-        metrics: [
-            { label: "States", value: "2" },
-            { label: "Actions", value: "3" },
-            { label: "Reward uplift", value: "270%" },
-        ],
-        highlights: [
-            "Implemented the core algorithm from scratch instead of relying on a framework.",
-            "Used reusable abstractions that can be extended beyond the robot example.",
-            "Added test coverage to validate the MDP components and solver behavior.",
-            "Documented the algorithm with diagrams and simulation outputs.",
-        ],
+            "The study follows the full statistical path from stationarity and residual diagnostics to rolling holdout evaluation. It also calls out spurious level correlations before testing relationships on stationary transformations.",
+        context: "Paris-Dauphine · 2025",
+        status: "Reproducible analytical report",
         featured: false,
-        image: "/projects/value_iteration.png",
-        github: "https://github.com/latifo01/reinforcement-learning-mdp",
-        categories: ["rl"],
+        categories: ["data-science", "quant"],
+        technologies: ["R", "ARIMA", "GARCH", "VAR", "Granger", "Forecasting"],
+        image: "/projects/time-series-banner.svg",
+        visual: "timeseries",
+        evidence: [
+            { value: "80/20", label: "holdout", note: "Chronological train/test split" },
+            { value: "3", label: "baselines", note: "Naïve, univariate and multivariate comparison" },
+            { value: "2", label: "domains", note: "Market volatility and French macroeconomics" },
+        ],
+        problem:
+            "Time-series models can look convincing in sample while failing to beat a simple carry-forward forecast or relying on spurious non-stationary relationships.",
+        approach:
+            "The report tests stationarity, diagnoses residual structure, compares AIC/BIC selections and evaluates forecasts on chronological holdouts against a naïve baseline.",
+        outcome:
+            "A single analytical narrative connects ARIMA forecasting, conditional volatility, dynamic regression, Granger tests, impulse responses and VAR forecasts.",
+        validation:
+            "Forecast comparisons use chronological train/test splits, residual tests and a naïve benchmark. Statistical relationships are evaluated after stationarity checks.",
+        limitation:
+            "The work remains an academic analysis. It does not include live data ingestion, forecast monitoring, transaction costs or a decision policy tied to financial value.",
+        architecture: [
+            "Market and macro data → dated time series",
+            "Stationarity and residual diagnostics",
+            "ARIMA/GARCH/ARIMAX/VAR candidates",
+            "Chronological holdout → baseline comparison",
+        ],
+        highlights: [
+            "ADF, Ljung-Box and ARCH diagnostics precede model interpretation.",
+            "The report separates correlation in levels from relationships on stationary series.",
+            "Naïve forecasts remain visible throughout the evaluation.",
+        ],
+        nextSteps: [
+            "Package data retrieval and environment locking in a public repository.",
+            "Adopt rolling-origin evaluation with uncertainty calibration.",
+            "Add drift monitoring and a clearly defined downstream decision rule.",
+        ],
+        role:
+            "Completed the end-to-end statistical analysis, diagnostics, model comparison, visual interpretation and written report.",
+        links: [],
     },
     {
         id: "monte-carlo-methods",
-        title: "Monte Carlo Methods for Quantile Estimation",
-        tagline: "Simulation, rare-event estimation, and variance reduction with visual explainers",
+        ordinal: "06",
+        title: "Monte Carlo methods for difficult quantiles",
+        shortTitle: "Monte Carlo",
+        tagline: "Sampling algorithms made inspectable through code, variance comparisons and animation.",
         summary:
-            "Implemented five Monte Carlo methods with animated visualizations to explain inverse CDF sampling, accept-reject sampling, stratification, importance sampling, and control variates.",
+            "A Python implementation of inverse-CDF, accept-reject, stratification, importance sampling and control variates for probability and tail-quantile estimation.",
         description:
-            "This project combines quantitative computing and pedagogy. It implements simulation methods for difficult probability and quantile estimation problems, then makes the mechanics visible through custom animations.",
-        problem:
-            "Rare-event probability estimation becomes unstable with naive simulation, so strong variance reduction strategies are required for usable estimates.",
-        approach:
-            "Implemented several Monte Carlo estimators, compared where they help most, and generated animations to explain the sampling behavior and convergence intuitively.",
-        impact:
-            "Produced seven custom animations and a modular simulation codebase covering five advanced sampling strategies for quantile estimation.",
-        role: "Simulation design, variance reduction implementation, and technical visualization",
-        context: "Monte Carlo methods coursework in applied mathematics",
-        technologies: ["Python", "NumPy", "SciPy", "Matplotlib"],
-        metrics: [
-            { label: "Methods", value: "5" },
-            { label: "Animations", value: "7" },
-            { label: "Focus", value: "Rare events" },
-        ],
-        highlights: [
-            "Implemented multiple variance reduction methods in a single consistent framework.",
-            "Explained algorithms with custom animation rather than static figures only.",
-            "Connected mathematical estimators to practical simulation behavior.",
-            "Built a project that is both technically rigorous and highly legible.",
-        ],
+            "The project turns a probability course assignment into a small reusable simulation package. Animations expose how each sampler behaves, while method comparisons focus on when variance reduction is actually useful.",
+        context: "Paris-Dauphine · 2025",
+        status: "Validated for publication",
         featured: false,
+        categories: ["data-science", "quant"],
+        technologies: ["Python", "NumPy", "SciPy", "Matplotlib", "Simulation"],
         image: "/projects/sampling_process.gif",
-        github: "https://github.com/latifo01/monte-carlo-methods",
-        categories: ["quant"],
-    },
-    {
-        id: "bike-sharing-glm",
-        title: "Bike Sharing Demand Prediction",
-        tagline: "Model comparison platform for operational demand forecasting",
-        summary:
-            "Built a forecasting workflow for bike rental demand with six models, Box-Cox target transformation, model tracking, and deployment-ready packaging.",
-        description:
-            "The project extends a GLM-based academic study into a broader machine learning workflow. It compares linear, tree-based, and boosting models under a consistent evaluation setup and keeps the code organized for reuse.",
+        visual: "simulation",
+        evidence: [
+            { value: "5", label: "methods", note: "Sampling and variance-reduction strategies" },
+            { value: "7/7", label: "tests", note: "Passing in a clean Python 3.11 environment" },
+            { value: "0.95+", label: "tail focus", note: "Importance sampling use case" },
+        ],
         problem:
-            "Demand forecasting for urban mobility needs a reproducible process for comparing models, validating feature engineering, and exposing the best model for downstream use.",
+            "Tail probabilities and implicit quantiles can be difficult to estimate efficiently when direct integration or naïve sampling is too costly.",
         approach:
-            "Prepared the data, added feature engineering and target transformations, tuned several models with GridSearchCV, logged the comparison outputs, and packaged the project structure with Docker and serialized artifacts.",
-        impact:
-            "The strongest models achieved an R-squared above 0.85 with RMSE around 180 to 220 rentals, improving on a more classical GLM baseline.",
-        role: "Forecasting workflow design, model benchmarking, and packaging",
-        context: "Applied machine learning extension of an academic GLM project",
-        technologies: ["Python", "scikit-learn", "XGBoost", "LightGBM", "Pandas", "Docker"],
-        metrics: [
-            { label: "Models tested", value: "6" },
-            { label: "Best R2", value: "0.85+" },
-            { label: "RMSE", value: "180-220" },
+            "The code implements multiple samplers behind small modules, then compares convergence and variance while generating visual explanations from the same algorithms.",
+        outcome:
+            "A compact educational package connects mathematical derivation, executable code, static figures and generated animations without depending on a single notebook.",
+        validation:
+            "Seven numerical unit tests pass in a clean Python 3.11 environment. The complete experiment also runs end to end and reproduces density, sampling, interval and estimator-comparison figures.",
+        limitation:
+            "The current comparison is educational rather than a large benchmark. Runtime, effective sample size and confidence-interval coverage need systematic reporting.",
+        architecture: [
+            "Target density → normalization and reference CDF",
+            "Sampler modules → generated observations",
+            "Estimator layer → probability and quantile",
+            "Diagnostics → figures and animations",
         ],
         highlights: [
-            "Benchmarked six models under a shared evaluation framework.",
-            "Applied Box-Cox normalization and feature engineering before model selection.",
-            "Saved trained artifacts and figures for reproducibility.",
-            "Organized the codebase for reuse instead of leaving it in notebooks only.",
+            "Algorithm modules are separated from notebooks and visual generation.",
+            "The visual assets are produced by the same source code used in the estimates.",
+            "The project includes an MIT license and a concise execution path.",
         ],
-        featured: true,
-        image: "/projects/bike-sharing-models.png",
-        github: "https://github.com/latifo01/bike-sharing-prediction",
-        categories: ["ml"],
+        nextSteps: [
+            "Extend deterministic coverage to stratification and control-variate edge cases.",
+            "Report variance, effective sample size and interval coverage in one benchmark table.",
+            "Publish the validated repository and connect its CI status to this case study.",
+        ],
+        role:
+            "Implemented the sampling and variance-reduction methods, numerical comparisons and animation pipeline.",
+        links: [],
     },
-    {
-        id: "ecg-signal-denoising",
-        title: "ECG Signal Denoising",
-        tagline: "Benchmark of DWT, PCA, and Kernel PCA on noisy cardiac signals",
-        summary:
-            "Reproduced and benchmarked ECG denoising methods on MIT-BIH data, comparing DWT, PCA, and Kernel PCA across several noise families.",
-        description:
-            "This project focuses on signal processing rigor. It benchmarks denoising methods on cardiac waveforms corrupted by muscle artifact, electrode motion, and white noise, then compares the resulting reconstruction quality.",
-        problem:
-            "Biomedical signals are easily degraded by multiple noise sources, and denoising choices should be compared systematically rather than selected heuristically.",
-        approach:
-            "Loaded MIT-BIH records, added controlled noise, segmented beats, applied DWT, PCA, and Kernel PCA denoising strategies, and measured reconstruction quality through MSE across records and noise types.",
-        impact:
-            "Across the benchmark, Kernel PCA achieved the lowest mean MSE overall at 2.57 versus 3.99 for DWT and 18.80 for PCA, with especially strong gains on electrode motion noise.",
-        role: "Signal processing pipeline implementation, benchmarking, and result synthesis",
-        context: "Biomedical signal processing project based on an INTERCON paper",
-        technologies: ["Python", "Wavelets", "Kernel PCA", "NumPy", "SciPy", "wfdb"],
-        metrics: [
-            { label: "ECG records", value: "8" },
-            { label: "Noise types", value: "3" },
-            { label: "Best mean MSE", value: "2.57" },
-        ],
-        highlights: [
-            "Benchmarked three denoising families across several records and noise conditions.",
-            "Reproduced a paper-inspired setup on real cardiac datasets rather than toy signals.",
-            "Surfaced that the best method depends on the noise regime, which is a useful modeling nuance.",
-            "Packaged the workflow with separate benchmark and hyperparameter search scripts.",
-        ],
-        featured: false,
-        image: "/projects/ecg-denoising-banner.svg",
-        github: "https://github.com/latifo01/memoire_ecg",
-        categories: ["signal"],
-    },
-];
-
-export const FILTER_CATEGORIES: Array<{ id: "all" | ProjectCategory; label: string }> = [
-    { id: "all", label: "All projects" },
-    { id: "ml", label: "Machine learning" },
-    { id: "quant", label: "Quant and finance" },
-    { id: "signal", label: "Signal and health" },
-    { id: "rl", label: "RL and optimization" },
 ];
 
 export const featuredProjects = projects.filter((project) => project.featured);
 
-export function getProjectById(id: string) {
-    return projects.find((project) => project.id === id);
-}
+export const FILTER_CATEGORIES: { id: "all" | ProjectCategory; label: string }[] = [
+    { id: "all", label: "All evidence" },
+    { id: "applied-ai", label: "Applied AI" },
+    { id: "data-science", label: "Data Science" },
+    { id: "ml-systems", label: "ML Systems" },
+    { id: "quant", label: "Quant & simulation" },
+];
+
+export const getProjectById = (id: string) => projects.find((project) => project.id === id);

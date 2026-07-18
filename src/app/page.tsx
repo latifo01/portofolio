@@ -1,8 +1,5 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
+import { ArrowRight, ArrowUpRight, CheckCircle2, Github, Linkedin, Mail, ShieldCheck } from "lucide-react";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -11,251 +8,199 @@ import Skills from "@/components/Skills";
 import Timeline from "@/components/Timeline";
 import { featuredProjects, projects } from "@/data/projects";
 
-const workPrinciples = [
-    {
-        title: "From notebook to repository",
-        description:
-            "I keep the parts that matter in practice: scripts, reports, saved artifacts, dashboards, or reproducible analysis notebooks.",
-    },
-    {
-        title: "Methods tied to real outputs",
-        description:
-            "The portfolio mixes machine learning, time series, simulation, signal processing, and reinforcement learning, but each project stays tied to data, code, and measured results.",
-    },
-    {
-        title: "No placeholder case studies",
-        description:
-            "Each selected project points back to an actual repository, report, notebook, figure set, or runnable demo rather than generic portfolio copy.",
-    },
+const proofStats = [
+    { value: "2", label: "deployed AI products", note: "Interfaces and APIs live on the web" },
+    { value: "81/81", label: "tests verified", note: "GenAI preprocessing workflow" },
+    { value: "6", label: "curated case studies", note: "Every claim carries a boundary" },
 ];
 
-const headlineStats = [
-    { label: "selected projects", value: `${projects.length}` },
-    { label: "main languages", value: "4" },
-    { label: "core domains", value: "3" },
+const operatingPrinciples = [
+    {
+        number: "01",
+        title: "Evidence before adjectives",
+        description: "Metrics include their evaluation scope. Deployed means deployed; a prototype stays a prototype.",
+    },
+    {
+        number: "02",
+        title: "Deterministic where it matters",
+        description: "LLMs recommend and structure. Rules, contracts and human review protect high-impact decisions.",
+    },
+    {
+        number: "03",
+        title: "A model needs an interface",
+        description: "The work is not finished when a notebook ends. APIs, tests and usable screens make it inspectable.",
+    },
 ];
 
 export default function Home() {
     return (
-        <main className="relative min-h-screen">
+        <main id="main-content" className="relative min-h-screen">
             <AnimatedBackground />
             <Navbar />
 
-            <section className="relative px-6 pt-32 pb-24 md:pt-40">
-                <div className="section-shell relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7 }}
-                        className="max-w-4xl"
-                    >
-                        <div className="eyebrow mb-8">Paris-Dauphine | Applied Mathematics | ML and Quant</div>
+            <section className="px-3 pb-16 pt-28 sm:px-6 sm:pb-24 sm:pt-36">
+                <div className="section-shell grid gap-10 xl:grid-cols-[1.16fr_0.84fr] xl:items-end">
+                    <div className="reveal">
+                        <div className="flex flex-wrap items-center gap-3">
+                            <span className="eyebrow">Data Science × Applied AI</span>
+                            <span className="inline-flex items-center gap-2 font-code text-[10px] font-semibold uppercase tracking-[0.13em] text-foreground/55">
+                                <span className="status-dot" /> BNP Paribas Data Office · 2026
+                            </span>
+                        </div>
 
-                        <h1 className="max-w-4xl text-5xl font-semibold leading-tight md:text-7xl">
-                            Machine learning and quantitative projects built past the notebook stage.
+                        <h1 className="mt-7 max-w-5xl text-[clamp(3rem,8.2vw,7.4rem)] font-bold leading-[0.88] tracking-[-0.075em]">
+                            Rigorous models.
+                            <br />
+                            <span className="display-serif text-primary">Visible evidence.</span>
                         </h1>
 
-                        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-foreground/70 md:text-xl">
-                            I am Ibrahim Youssouf Abdelatif, an applied mathematics student at Paris-Dauphine. My work
-                            focuses on machine learning, quantitative modeling, time series, signal processing, and
-                            reinforcement learning, with an emphasis on reproducible code, clear methods, and results I
-                            can explain end to end.
+                        <p className="mt-7 max-w-2xl text-base leading-relaxed text-foreground/68 sm:text-lg">
+                            I am Ibrahim Abdelatif, an M2 Data Science student at Paris-Dauphine and Agentic AI Data Scientist Intern at BNP Paribas. I build statistical work that can be challenged and AI systems whose boundaries can be inspected.
                         </p>
 
-                        <div className="mt-10 flex flex-wrap gap-4">
-                            <Link
-                                href="/projects"
-                                className="inline-flex items-center gap-2 rounded-full bg-accent-gradient px-6 py-3 font-semibold text-slate-950 transition-transform hover:scale-[1.02]"
-                            >
-                                Explore projects
-                                <ArrowRight className="h-4 w-4" />
+                        <div className="mt-8 flex flex-wrap gap-3">
+                            <Link href="/projects" className="button-secondary">
+                                Inspect selected work <ArrowRight className="h-4 w-4" />
                             </Link>
-                            <a
-                                href="/cv/CV_Ibrahim_EN.pdf"
-                                download
-                                className="inline-flex items-center gap-2 rounded-full border border-border bg-white/5 px-6 py-3 font-medium text-foreground/82 transition-colors hover:bg-white/10"
-                            >
-                                <Download className="h-4 w-4" />
-                                Resume
-                            </a>
+                            <Link href="/resume" className="button-primary">
+                                Resume & experience <ArrowUpRight className="h-4 w-4" />
+                            </Link>
                         </div>
 
-                        <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-foreground/60">
-                            <a
-                                href="https://github.com/latifo01"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 rounded-full border border-border bg-white/5 px-4 py-2 transition-colors hover:bg-white/10 hover:text-foreground"
-                            >
-                                <Github className="h-4 w-4" />
-                                GitHub
-                            </a>
-                            <a
-                                href="https://www.linkedin.com/in/abdelatif-ibrahim/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 rounded-full border border-border bg-white/5 px-4 py-2 transition-colors hover:bg-white/10 hover:text-foreground"
-                            >
-                                <Linkedin className="h-4 w-4" />
-                                LinkedIn
-                            </a>
-                            <a
-                                href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu?subject=Portfolio%20Contact"
-                                className="inline-flex items-center gap-2 rounded-full border border-border bg-white/5 px-4 py-2 transition-colors hover:bg-white/10 hover:text-foreground"
-                            >
-                                <Mail className="h-4 w-4" />
-                                Email
-                            </a>
+                        <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold text-foreground/62">
+                            <a href="https://github.com/latifo01" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 hover:text-primary"><Github className="h-4 w-4" /> GitHub</a>
+                            <a href="https://www.linkedin.com/in/abdelatif-ibrahim/" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 hover:text-primary"><Linkedin className="h-4 w-4" /> LinkedIn</a>
+                            <a href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu?subject=Portfolio%20contact" className="inline-flex min-h-11 items-center gap-2 hover:text-primary"><Mail className="h-4 w-4" /> Email</a>
                         </div>
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.15, duration: 0.7 }}
-                        className="mt-14 grid gap-4 md:grid-cols-3"
-                    >
-                        {headlineStats.map((stat) => (
-                            <div key={stat.label} className="glass-card p-6">
-                                <p className="text-4xl font-semibold gradient-text">{stat.value}</p>
-                                <p className="mt-2 text-sm uppercase tracking-[0.18em] text-foreground/42">
-                                    {stat.label}
-                                </p>
-                            </div>
-                        ))}
-                    </motion.div>
+                    <aside className="paper-card-strong reveal reveal-delay overflow-hidden" aria-label="Current evidence summary">
+                        <div className="flex items-center justify-between border-b border-foreground px-5 py-4">
+                            <p className="font-code text-[10px] font-bold uppercase tracking-[0.17em]">Evidence console / live</p>
+                            <ShieldCheck className="h-4 w-4 text-[#2f9d67]" />
+                        </div>
+                        <div className="divide-y divide-foreground/15">
+                            {proofStats.map((stat, index) => (
+                                <div key={stat.label} className="grid grid-cols-[54px_1fr] gap-4 p-5">
+                                    <span className="font-code text-[10px] font-bold text-foreground/38">0{index + 1}</span>
+                                    <div className="grid gap-1 sm:grid-cols-[110px_1fr] sm:items-baseline">
+                                        <p className="text-3xl font-bold tracking-[-0.05em]">{stat.value}</p>
+                                        <div>
+                                            <p className="text-sm font-bold">{stat.label}</p>
+                                            <p className="mt-1 text-xs leading-relaxed text-foreground/52">{stat.note}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="bg-foreground p-5 text-white">
+                            <p className="font-code text-[9px] uppercase tracking-[0.17em] text-white/45">Positioning</p>
+                            <p className="mt-2 text-sm font-semibold leading-relaxed">Data Scientist with an Applied AI engineering trajectory — not a collection of notebook screenshots.</p>
+                        </div>
+                    </aside>
                 </div>
             </section>
 
-            <section className="px-6 py-6">
-                <div className="section-shell grid gap-6 md:grid-cols-3">
-                    {workPrinciples.map((point, index) => (
-                        <motion.article
-                            key={point.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.12 }}
-                            className="glass-card p-6"
-                        >
-                            <p className="font-code text-xs uppercase tracking-[0.24em] text-primary-light mb-3">
-                                Why it matters
-                            </p>
-                            <h2 className="text-2xl font-semibold mb-3">{point.title}</h2>
-                            <p className="text-sm leading-relaxed text-foreground/66">{point.description}</p>
-                        </motion.article>
+            <div className="ticker" aria-hidden="true">
+                <div className="ticker-track">
+                    {[0, 1].map((copy) => (
+                        <div key={copy} className="flex">
+                            <span>Python · FastAPI · RAG · LangGraph</span>
+                            <span>Statistical validation · Time series · Clustering</span>
+                            <span>Human review · Pydantic contracts · Cloud deployment</span>
+                        </div>
                     ))}
                 </div>
-            </section>
+            </div>
 
-            <section id="projects" className="px-6 py-24">
+            <section className="px-3 py-20 sm:px-6 sm:py-28">
                 <div className="section-shell">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
-                    >
-                        <div className="max-w-2xl">
-                            <div className="eyebrow mb-5">Selected work</div>
-                            <h2 className="text-4xl font-semibold md:text-5xl">
-                                Case studies backed by code, data, and actual outputs.
+                    <div className="grid gap-6 border-b border-foreground pb-8 lg:grid-cols-[0.65fr_1.35fr] lg:items-end">
+                        <div>
+                            <span className="section-label">Selected evidence</span>
+                            <p className="mt-4 font-code text-xs uppercase tracking-[0.16em] text-foreground/48">{featuredProjects.length} flagship systems</p>
+                        </div>
+                        <div>
+                            <h2 className="max-w-4xl text-4xl font-bold leading-[0.98] tracking-[-0.055em] sm:text-6xl">
+                                Case studies that show the <span className="display-serif text-secondary">decision trail.</span>
                             </h2>
+                            <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/62">Each case exposes the problem, architecture, validation scope, result and limitation. A recruiter should not need to guess what was actually built.</p>
                         </div>
-                    </motion.div>
-
-                    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                        {featuredProjects.map((project, index) => (
-                            <motion.div
-                                key={project.id}
-                                initial={{ opacity: 0, y: 18 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.08 }}
-                            >
-                                <ProjectCard project={project} />
-                            </motion.div>
-                        ))}
                     </div>
 
-                    <div className="mt-10">
-                        <Link
-                            href="/projects"
-                            className="inline-flex items-center gap-2 rounded-full border border-border bg-white/5 px-5 py-3 text-sm font-medium text-foreground/80 transition-colors hover:bg-white/10 hover:text-foreground"
-                        >
-                            See the full project library
-                            <ArrowRight className="h-4 w-4" />
-                        </Link>
+                    <div className="mt-8 grid gap-5 md:grid-cols-2">
+                        {featuredProjects.map((project) => <ProjectCard key={project.id} project={project} />)}
+                    </div>
+
+                    <div className="mt-8 flex justify-end">
+                        <Link href="/projects" className="button-quiet">Explore all {projects.length} case studies <ArrowRight className="h-4 w-4" /></Link>
                     </div>
                 </div>
             </section>
 
-            <section id="about" className="px-6 py-24">
+            <section className="border-y border-foreground bg-paper px-3 py-20 sm:px-6 sm:py-24">
                 <div className="section-shell">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-14 max-w-3xl"
-                    >
-                        <div className="eyebrow mb-5">Background</div>
-                        <h2 className="text-4xl font-semibold md:text-5xl">A profile built on mathematics, not buzzwords.</h2>
-                        <p className="mt-5 text-lg leading-relaxed text-foreground/68">
-                            My academic path gave me a strong base in probability, statistics, optimization, and
-                            scientific computing. That foundation helps me move comfortably between modeling, code, and
-                            interpretation.
-                        </p>
-                    </motion.div>
-
-                    <div className="grid gap-10 xl:grid-cols-[1.05fr_0.95fr]">
+                    <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
                         <div>
-                            <h3 className="mb-6 text-2xl font-semibold">Academic path</h3>
-                            <Timeline />
+                            <span className="section-label">Operating principles</span>
+                            <h2 className="mt-6 text-4xl font-bold leading-none tracking-[-0.05em]">How I decide whether a project is ready to show.</h2>
                         </div>
-                        <div>
-                            <h3 className="mb-6 text-2xl font-semibold">Capabilities that travel well</h3>
-                            <Skills />
+                        <div className="border-t border-foreground">
+                            {operatingPrinciples.map((principle) => (
+                                <article key={principle.number} className="grid gap-3 border-b border-foreground/25 py-6 sm:grid-cols-[56px_1fr_1fr]">
+                                    <p className="font-code text-xs font-bold text-primary">{principle.number}</p>
+                                    <h3 className="text-lg font-bold">{principle.title}</h3>
+                                    <p className="text-sm leading-relaxed text-foreground/62">{principle.description}</p>
+                                </article>
+                            ))}
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="contact" className="px-6 pb-24">
+            <section id="about" className="px-3 py-20 sm:px-6 sm:py-28">
                 <div className="section-shell">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="glass-card p-8 md:p-10"
-                    >
-                        <div className="max-w-3xl">
-                            <div className="eyebrow mb-5">Contact</div>
-                            <h2 className="text-4xl font-semibold md:text-5xl">If the work is relevant, I would love to discuss it.</h2>
-                            <p className="mt-5 text-lg leading-relaxed text-foreground/68">
-                                I am especially interested in opportunities where strong modeling, careful experimentation,
-                                and clear delivery all matter at the same time.
-                            </p>
+                    <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+                        <div>
+                            <span className="section-label">Experience & education</span>
+                            <p className="mt-5 max-w-md text-sm leading-relaxed text-foreground/62">Current Agentic AI internship at BNP Paribas, prior forecasting and reporting work at Deloitte, and a mathematical path through Strasbourg and Paris-Dauphine.</p>
                         </div>
+                        <h2 className="text-4xl font-bold leading-[0.98] tracking-[-0.055em] sm:text-6xl">Mathematics is the foundation. <span className="display-serif text-primary">Delivery is the test.</span></h2>
+                    </div>
+                    <div className="mt-12"><Timeline /></div>
+                </div>
+            </section>
 
-                        <div className="mt-8 flex flex-wrap gap-4">
-                            <a
-                                href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu?subject=Portfolio%20Contact"
-                                className="inline-flex items-center gap-2 rounded-full bg-accent-gradient px-6 py-3 font-semibold text-slate-950 transition-transform hover:scale-[1.02]"
-                            >
-                                <Mail className="h-4 w-4" />
-                                Send an email
-                            </a>
-                            <a
-                                href="https://www.linkedin.com/in/abdelatif-ibrahim/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 rounded-full border border-border bg-white/5 px-6 py-3 font-medium text-foreground/82 transition-colors hover:bg-white/10"
-                            >
-                                <Linkedin className="h-4 w-4" />
-                                LinkedIn
-                            </a>
+            <section className="border-y border-foreground bg-background-secondary px-3 py-20 sm:px-6 sm:py-24">
+                <div className="section-shell">
+                    <div className="mb-10 grid gap-5 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+                        <span className="section-label w-fit">Capabilities with proof</span>
+                        <h2 className="text-4xl font-bold leading-none tracking-[-0.05em] sm:text-5xl">A stack organised by <span className="display-serif text-secondary">what it enables.</span></h2>
+                    </div>
+                    <Skills />
+                </div>
+            </section>
+
+            <section id="contact" className="px-3 py-20 sm:px-6 sm:py-28">
+                <div className="section-shell paper-card-strong overflow-hidden">
+                    <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
+                        <div className="p-7 sm:p-10 lg:p-14">
+                            <span className="section-label">Contact</span>
+                            <h2 className="mt-7 max-w-3xl text-4xl font-bold leading-[0.98] tracking-[-0.055em] sm:text-6xl">Have a hard data problem? <span className="display-serif text-primary">Let’s make the evidence visible.</span></h2>
+                            <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/64">I am interested in Data Science and Applied AI work where model quality, software reliability and stakeholder clarity matter together.</p>
+                            <div className="mt-8 flex flex-wrap gap-3">
+                                <a href="mailto:ibrahim-youssouf.abdelatif@dauphine.eu?subject=Portfolio%20contact" className="button-primary"><Mail className="h-4 w-4" /> Send an email</a>
+                                <a href="https://www.linkedin.com/in/abdelatif-ibrahim/" target="_blank" rel="noopener noreferrer" className="button-quiet"><Linkedin className="h-4 w-4" /> LinkedIn</a>
+                            </div>
                         </div>
-                    </motion.div>
+                        <div className="data-grid grid min-h-64 place-items-center border-t border-foreground bg-acid p-8 lg:border-l lg:border-t-0">
+                            <div className="max-w-xs rounded-full border border-foreground bg-paper p-4 text-center">
+                                <CheckCircle2 className="mx-auto h-10 w-10 text-[#2f9d67]" />
+                                <p className="mt-4 font-code text-[10px] font-bold uppercase tracking-[0.16em]">Signal available</p>
+                                <p className="mt-2 text-sm leading-relaxed text-foreground/62">Paris · Europe · French / English / Arabic</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 

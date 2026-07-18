@@ -26,6 +26,11 @@ const config: Config = {
                     DEFAULT: "var(--card)",
                     hover: "var(--card-hover)",
                 },
+                paper: "var(--paper)",
+                ink: "var(--ink)",
+                acid: "var(--acid)",
+                signal: "var(--signal)",
+                blue: "var(--blue)",
             },
             fontFamily: {
                 sans: ["var(--font-sans)", "system-ui", "sans-serif"],
