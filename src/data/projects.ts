@@ -214,7 +214,7 @@ export const projects: Project[] = [
         description:
             "The work combines cleaning, feature engineering, K-means/CAH/GMM comparison and an interactive dashboard. The emphasis is not only on cluster labels but on the behaviors a stakeholder can inspect before designing a campaign.",
         context: "Paris-Dauphine · 2025",
-        status: "Live interactive demo",
+        status: "Live demo · Public source",
         featured: true,
         categories: ["data-science"],
         technologies: ["R", "Shiny", "K-means", "CAH", "GMM", "Plotly"],
@@ -247,7 +247,7 @@ export const projects: Project[] = [
             "The live application is independently accessible without local setup.",
         ],
         nextSteps: [
-            "Publish the cleaned source repository with a reproducible R environment.",
+            "Lock the R environment and add an automated Shiny smoke test.",
             "Measure cluster stability under resampling and across time windows.",
             "Validate campaign value through an uplift or controlled-experiment design.",
         ],
@@ -258,6 +258,11 @@ export const projects: Project[] = [
                 label: "Live dashboard",
                 href: "https://ibrahimabdelatif-segmentation-des-clients.share.connect.posit.cloud",
                 kind: "demo",
+            },
+            {
+                label: "Source code",
+                href: "https://github.com/latifo01/customer-segmentation-shiny",
+                kind: "code",
             },
         ],
     },
@@ -324,7 +329,7 @@ export const projects: Project[] = [
         description:
             "The project turns a probability course assignment into a small reusable simulation package. Animations expose how each sampler behaves, while method comparisons focus on when variance reduction is actually useful.",
         context: "Paris-Dauphine · 2025",
-        status: "Validated for publication",
+        status: "Tested public repository",
         featured: false,
         categories: ["data-science", "quant"],
         technologies: ["Python", "NumPy", "SciPy", "Matplotlib", "Simulation"],
@@ -359,11 +364,17 @@ export const projects: Project[] = [
         nextSteps: [
             "Extend deterministic coverage to stratification and control-variate edge cases.",
             "Report variance, effective sample size and interval coverage in one benchmark table.",
-            "Publish the validated repository and connect its CI status to this case study.",
+            "Expose benchmark and CI status directly in this case study.",
         ],
         role:
             "Implemented the sampling and variance-reduction methods, numerical comparisons and animation pipeline.",
-        links: [],
+        links: [
+            {
+                label: "Source code",
+                href: "https://github.com/latifo01/monte-carlo-quantile-estimation",
+                kind: "code",
+            },
+        ],
     },
 ];
 

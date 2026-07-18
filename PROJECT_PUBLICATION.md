@@ -2,11 +2,11 @@
 
 This register keeps the public portfolio selective. A project is linked only when its code, provenance, execution path, evidence, and limitations are inspectable.
 
-## Publish now
+## Published after audit
 
 ### Customer segmentation Shiny
 
-Recommended repository: `latifo01/customer-segmentation-shiny`
+Public repository: <https://github.com/latifo01/customer-segmentation-shiny>
 
 - Strong product evidence: reproducible R Markdown analysis plus a live stakeholder interface.
 - Dataset provenance is documented; the upstream Kaggle publisher declares Apache 2.0.
@@ -15,7 +15,7 @@ Recommended repository: `latifo01/customer-segmentation-shiny`
 
 ### Monte Carlo quantile estimation
 
-Recommended repository: `latifo01/monte-carlo-quantile-estimation`
+Public repository: <https://github.com/latifo01/monte-carlo-quantile-estimation>
 
 - Modular Python source, figures, animations, MIT license, and a direct execution path.
 - The admissible-density check was corrected so invalid Gaussian differences are rejected instead of clipped.
