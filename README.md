@@ -1,55 +1,44 @@
-# Portofolio Data Science
+# Ibrahim Abdelatif — Data & Applied AI portfolio
 
-Portofolio personnel présentant mes projets en Data Science, Machine Learning et Mathématiques Appliquées.
+An evidence-first portfolio built with Next.js 15. The interface is designed as an editorial case-file: restrained typography, visible validation, explicit limitations, and direct access to code or artifacts.
 
-## Technologies
+## What is public
 
-- **Framework**: Next.js 14 (App Router)
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Deployment**: Vercel
+- Selected data science and applied AI case studies.
+- Reproducible results, validation notes, limitations, and next steps.
+- English and French résumés, plus an accessible HTML version.
 
-## Installation
+Private client, banking, or confidential hackathon materials are intentionally excluded.
+
+## Local development
 
 ```bash
-# Installer les dépendances
 npm install
-
-# Lancer en développement
 npm run dev
-
-# Build production
-npm run build
 ```
 
-## Structure
-
-```
-portfolio/
-├── src/
-│   ├── app/           # Pages Next.js
-│   │   ├── page.tsx           # Landing page
-│   │   ├── projects/          # Pages projets
-│   │   ├── theory/            # Core Theory
-│   │   ├── llm/               # LLM & GenAI
-│   │   └── blog/              # Blog
-│   └── components/    # Composants réutilisables
-├── public/            # Assets statiques
-└── package.json
-```
-
-## Déploiement
+Quality gate:
 
 ```bash
-# Push sur GitHub puis connecter à Vercel
-vercel
+npm run check
 ```
 
-## Auteur
+## Stack
 
-**Ibrahim Youssouf ABDELATIF**  
-Paris-Dauphine University • MSc 280
+- Next.js 15 App Router, React 18, TypeScript
+- Tailwind CSS and a repository-owned design system
+- KaTeX for mathematical notes
+- Vercel Analytics and optimized Next.js images
 
-- [LinkedIn](https://www.linkedin.com/in/abdelatif-ibrahim/)
-- [GitHub](https://github.com/latifo01/latifo01)
-- Email: ibrahim-youssouf.abdelatif@dauphine.eu
+## Main routes
+
+- `/` — profile, featured evidence, experience, and contact
+- `/projects` — curated project library
+- `/projects/[slug]` — case studies with evidence and limitations
+- `/llm` — applied AI systems
+- `/theory` — compact method notes
+- `/resume` — accessible résumé with EN/FR PDF downloads
+
+## Author
+
+Ibrahim Youssouf Abdelatif — [LinkedIn](https://www.linkedin.com/in/abdelatif-ibrahim/) · [GitHub](https://github.com/latifo01) · ibrahim-youssouf.abdelatif@dauphine.eu

@@ -1,30 +1,15 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Home } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
     return (
-        <main className="min-h-screen flex items-center justify-center px-6">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center"
-            >
-                <h1 className="text-8xl font-bold gradient-text mb-4">404</h1>
-                <h2 className="text-2xl font-semibold mb-4">Page Not Found</h2>
-                <p className="text-foreground/60 mb-8 max-w-md">
-                    The page you&apos;re looking for doesn&apos;t exist or has been moved.
-                </p>
-                <Link
-                    href="/"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-accent-gradient rounded-full font-semibold glow-hover transition-all duration-300 hover:scale-105"
-                >
-                    <Home className="w-5 h-5" />
-                    Back to Home
-                </Link>
-            </motion.div>
+        <main id="main-content" className="data-grid grid min-h-screen place-items-center px-4 py-20">
+            <div className="paper-card-strong max-w-xl p-8 text-center sm:p-12">
+                <p className="font-code text-xs font-bold uppercase tracking-[0.18em] text-primary">Error / 404</p>
+                <h1 className="mt-5 text-5xl font-bold leading-none tracking-[-0.06em]">Evidence not found.</h1>
+                <p className="mt-5 text-sm leading-relaxed text-foreground/62">The requested page does not belong to the current case-study set.</p>
+                <Link href="/" className="button-secondary mt-8"><ArrowLeft className="h-4 w-4" /> Return home</Link>
+            </div>
         </main>
     );
 }

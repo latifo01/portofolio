@@ -1,16 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    poweredByHeader: false,
+    compress: true,
+    eslint: {
+        // CI runs ESLint explicitly; avoid running the same check twice during builds.
+        ignoreDuringBuilds: true,
+    },
     images: {
-        remotePatterns: [
+        formats: ['image/avif', 'image/webp'],
+    },
+    async headers() {
+        return [
             {
-                protocol: 'https',
-                hostname: 'img.shields.io',
+                source: '/:path*',
+                headers: [
+                    { key: 'X-Content-Type-Options', value: 'nosniff' },
+                    { key: 'X-Frame-Options', value: 'DENY' },
+                    { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+                    { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+                    { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+                ],
             },
-            {
-                protocol: 'https',
-                hostname: 'readme-typing-svg.demolab.com',
-            },
-        ],
+        ];
     },
 };
 

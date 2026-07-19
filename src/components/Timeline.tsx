@@ -1,9 +1,6 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 interface TimelineItem {
     period: string;
+    type: "Experience" | "Research" | "Education";
     title: string;
     organization: string;
     focus: string;
@@ -11,55 +8,63 @@ interface TimelineItem {
 
 const timelineData: TimelineItem[] = [
     {
-        period: "2025 - Present",
-        title: "MSc 280 Data Science and Quantitative Finance",
-        organization: "Paris-Dauphine University",
-        focus: "Machine learning, stochastic modeling, quantitative methods, and decision systems.",
+        period: "Apr — Sep 2026",
+        type: "Experience",
+        title: "Agentic AI Data Scientist Intern",
+        organization: "BNP Paribas — Data Office Europe Mediterranean",
+        focus: "Agentic AI experimentation, internal LLM platform workflows, use-case framing and evaluation across business, IT and data constraints.",
     },
     {
-        period: "2024 - 2025",
-        title: "M1 Applied Mathematics",
-        organization: "Paris-Dauphine University",
-        focus: "Probability, statistics, optimization, and rigorous modeling foundations.",
+        period: "Jun — Sep 2025",
+        type: "Experience",
+        title: "Data Scientist Intern",
+        organization: "Deloitte Chad",
+        focus: "Time-series budgeting models, reporting automation and translation of finance needs into analytical specifications.",
     },
     {
-        period: "2021 - 2024",
+        period: "Oct 2024 — May 2025",
+        type: "Research",
+        title: "Junior Researcher — Non-linear dimension reduction",
+        organization: "Paris-Dauphine University",
+        focus: "Comparative PCA/KPCA analysis and a Python workflow for latent-space visualisation.",
+    },
+    {
+        period: "2025 — 2026",
+        type: "Education",
+        title: "M2 Statistical & Financial Engineering — Data Science",
+        organization: "Paris-Dauphine University — PSL",
+        focus: "Deep learning, NLP, reinforcement learning, cybersecurity, data quality and climate-risk modelling.",
+    },
+    {
+        period: "2024 — 2025",
+        type: "Education",
+        title: "M1 Applied Mathematics — Statistics",
+        organization: "Paris-Dauphine University — PSL",
+        focus: "Statistical learning, GLMs, stochastic processes, optimisation and scientific computing.",
+    },
+    {
+        period: "2021 — 2024",
+        type: "Education",
         title: "BSc Applied Mathematics",
         organization: "University of Strasbourg",
-        focus: "Mathematics, algorithms, and scientific computing fundamentals.",
+        focus: "Mathematics, algorithms, modelling and scientific computing foundations.",
     },
 ];
 
 export default function Timeline() {
     return (
-        <div className="relative mx-auto max-w-3xl py-4">
-            <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent md:left-1/2 md:-translate-x-1/2" />
-
+        <ol className="border-t border-foreground">
             {timelineData.map((item, index) => (
-                <motion.div
-                    key={item.period}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.14 }}
-                    className={`relative mb-8 flex items-start justify-between md:mb-10 ${index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"}`}
-                >
-                    <div className="absolute left-4 top-6 h-3.5 w-3.5 -translate-x-1/2 rounded-full border-2 border-primary bg-background glow md:left-1/2" />
-
-                    <div className="ml-10 md:ml-0 md:w-[44%]">
-                        <article className="glass-card p-6">
-                            <p className="font-code text-xs uppercase tracking-[0.24em] text-primary-light mb-3">
-                                {item.period}
-                            </p>
-                            <h3 className="text-xl font-semibold">{item.title}</h3>
-                            <p className="text-secondary mt-1 mb-3">{item.organization}</p>
-                            <p className="text-sm leading-relaxed text-foreground/68">{item.focus}</p>
-                        </article>
+                <li key={`${item.period}-${item.title}`} className="grid gap-3 border-b border-foreground/20 py-6 sm:grid-cols-[150px_130px_1fr]">
+                    <p className="font-code text-[10px] uppercase tracking-[0.15em] text-foreground/52">{item.period}</p>
+                    <p className="font-code text-[10px] font-bold uppercase tracking-[0.15em] text-primary">{String(index + 1).padStart(2, "0")} / {item.type}</p>
+                    <div>
+                        <h3 className="text-lg font-bold">{item.title}</h3>
+                        <p className="mt-1 text-sm font-semibold text-secondary">{item.organization}</p>
+                        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-foreground/62">{item.focus}</p>
                     </div>
-
-                    <div className="hidden md:block md:w-[44%]" />
-                </motion.div>
+                </li>
             ))}
-        </div>
+        </ol>
     );
 }
