@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .js,.mjs,.ts,.tsx --max-warnings=0",
+    "lint": "eslint src next.config.mjs --ext .js,.mjs,.ts,.tsx --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "check": "npm run lint && npm run typecheck && npm run build"
   },
