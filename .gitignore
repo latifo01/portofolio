@@ -8,6 +8,9 @@
 /coverage
 /tmp
 
+# Private Obsidian knowledge base (contains interview notes and confidential boundaries)
+/Ibrahim Project Brain/
+
 # Next.js
 /.next/
 /out/
